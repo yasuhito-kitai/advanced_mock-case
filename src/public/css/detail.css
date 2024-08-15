@@ -1,0 +1,12 @@
+.whole-container {
+    display: flex;
+}
+
+.detail-block__content {
+    width: 36rem;
+}
+
+.detail-block__content__img img {
+    width: 100%;
+}
+
