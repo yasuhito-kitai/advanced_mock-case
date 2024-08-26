@@ -47,7 +47,6 @@ class ShopController extends Controller
     }
 
     // お気に入り
-
     public function favorite(Request $request)
     {
         $user = Auth::user();
@@ -64,7 +63,7 @@ class ShopController extends Controller
         ]);
         }
     
-        return redirect('/');
+        return back();
 }
 
 
@@ -86,10 +85,19 @@ class ShopController extends Controller
         return view('done');
     }
 
-
-
-    public function back()
+    public function done()
     {
-        return back();
+        return redirect()->back();
+    }
+
+    // マイページ
+    public function mypage(Request $request)
+    {
+        $reservation_details = Reservation::with('shop')->get();
+        $user = Auth::user();
+        $user_id = $user->id;
+        $favorites = Favorite::where("user_id","=","$user_id")->get();
+
+        return view('mypage',['reservation_details'=> $reservation_details,'user_id' => $user_id,'favorites' => $favorites]);
     }
 }

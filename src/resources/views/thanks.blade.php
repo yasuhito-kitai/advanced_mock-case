@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="thanks-card">
-    <p class="thanks-card__text">ご予約ありがとうございます</p>
+    <p class="thanks-card__text">会員登録ありがとうございます</p>
         <div class="thanks-card__back-button">
             <button  class="thanks-card__back-button btn"><a class="users-list" href="/login">ログインする</a></button>
         </div>
