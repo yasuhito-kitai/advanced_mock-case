@@ -17,7 +17,6 @@ use Carbon\Carbon;
         <div class="detail-block__header">
             <div class="detail-block__back-button">
                 <form class="detail-block__back-button-form" action="/" method="get">
-                    @csrf
                     <input class="detail-block__back-button-input" type="submit" value="＜">
                 </form>
             </div>
@@ -46,7 +45,7 @@ use Carbon\Carbon;
     <!-- 予約ブロック -->
     <div class="reservation-block">
         <div class="reservation-block__title">
-            <p2>予約</p2>
+            <p2 class="reservation-block__title__title-text">予約</p2>
         </div>
         <!-- 予約フォーム -->
         <div class="reservation-block__content">
@@ -64,7 +63,7 @@ use Carbon\Carbon;
                         <option value="{{$h .':' . '30'}}">{{$h .':' . '30'}}</option>,
                         <option value="{{$h .':' . '45'}}">{{$h .':' . '45'}}</option>
                         }
-                    @endfor
+                        @endfor
                 </select>
                 <!-- 人数 -->
                 <select class="reservation-block__content-select--number" name="number">
@@ -72,7 +71,7 @@ use Carbon\Carbon;
                     @for ($i=1; $i<=50; $i++) {
                         echo<option value="{{$i}}人">{{$i}}人</option>
                         }
-                    @endfor
+                        @endfor
                 </select>
                 <!-- 予約ボタン -->
                 <div class="reservation-block__content-button">

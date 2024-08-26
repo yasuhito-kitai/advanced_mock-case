@@ -1,7 +1,15 @@
+.flex__item{
+    display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+            justify-content: flex-start;
+}
+
 .card {
     width: 36rem;
-    margin: 10rem auto 0;
+    margin: 10rem  1rem;
     box-shadow: 0rem 0.3rem 1rem rgba(0, 0, 0, 0.2);
+    
 }
 
 .card__img img {
