@@ -29,14 +29,16 @@ use Illuminate\Support\Facades\Auth;
                 </div>
 
                 <div class="reservation-number">
-
-
                     <p class="reservation-number__text">予約 {{$index+1}}</p>
                 </div>
 
-                <div class="cancel-icon">
-                    <img class="cancel-icon__img" src="/storage/キャンセルのアイコン.png">
-                </div>
+                <form class="cancel-form" action="/reserve/cancel" method="post">
+                    @method('DELETE')
+                    @csrf
+                    <div class="cancel-icon">
+                        <input type="hidden" name="id" value="{{ $reservation_detail['id'] }}">
+                        <img class="cancel-icon__img" src="/storage/キャンセルのアイコン.png">
+                    </div>
             </div>
 
             <table class="reservation-details">

@@ -16,9 +16,15 @@ use Carbon\Carbon;
     <div class="detail-block">
         <div class="detail-block__header">
             <div class="detail-block__back-button">
-                <form class="detail-block__back-button-form" action="/" method="get">
-                    <input class="detail-block__back-button-input" type="submit" value="＜">
-                </form>
+                @if (Auth::check())
+                @if (preg_match("/reserve/", $prevUrl))
+                <a class="detail-block__back-button--button" href="/mypage">＜</a>
+                @else
+                <a class="detail-block__back-button--button" href="{{ url()->previous() }}">＜</a>
+                @endif
+                @else
+                <a class="detail-block__back-button--button" href="{{ url()->previous() }}">＜</a>
+                @endif
             </div>
 
             <div class="detail-block__header__title">

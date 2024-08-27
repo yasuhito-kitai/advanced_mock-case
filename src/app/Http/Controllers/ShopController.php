@@ -40,10 +40,13 @@ class ShopController extends Controller
     {
         // 詳しくみるボタンを押されたカードのidを探す
         $shop_detail = Shop::find($id);
+        //遷移元URLの取得
+        $prevUrl = $_SERVER['HTTP_REFERER'];
+
         // カレンダーが昨日以前を非表示にするため「今日」を定義
         $today = Carbon::now()->format('Y-m-d');
-        // 店舗の詳細、人数、時間をビューに渡す。カレンダーのminには「今日」を渡す。
-        return view('detail', ['shop_detail' => $shop_detail,'today' => $today]);
+        // 店舗の詳細、人数、時間をビューに渡す。カレンダーのminには「今日」を渡す。戻るボタンの分岐のために遷移元URLも送る。
+        return view('detail', ['shop_detail' => $shop_detail,'today' => $today, 'prevUrl'=> $prevUrl]);
     }
 
     // お気に入り
@@ -85,9 +88,17 @@ class ShopController extends Controller
         return view('done');
     }
 
+    // 予約完了
     public function done()
     {
         return redirect()->back();
+    }
+
+    // 予約キャンセル
+    public function destroy(Request $request)
+    {
+        Reservation::find($request->id)->delete();
+        return redirect('/')->with('message', 'Todoを削除しました');
     }
 
     // マイページ
