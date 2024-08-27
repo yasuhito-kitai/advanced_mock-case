@@ -35,8 +35,8 @@
                         @else
                             <button class="heart gray" type="submit" name="shop_id" value="{{$shop->id}}"></button>
                         @endif
-                        @else
-                            <button class="heart gray" type="submit" name="shop_id" value="{{$shop->id}}"></button>
+                    @else
+                        <button class="heart gray" type="submit" name="shop_id" value="{{$shop->id}}"></button>
                     @endif
                 </form>
             </div>
