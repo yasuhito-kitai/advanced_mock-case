@@ -98,7 +98,7 @@ class ShopController extends Controller
     public function destroy(Request $request)
     {
         Reservation::find($request->id)->delete();
-        return redirect('/')->with('message', 'Todoを削除しました');
+        return redirect('/mypage')->with('message', '予約を取り消しました');
     }
 
     // マイページ

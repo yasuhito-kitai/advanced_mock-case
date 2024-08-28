@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Auth;
 <p class="user-name"><?php $user = Auth::user(); ?>{{ $user->name }}さん</p>
 
 <div class="whole-container">
+    @if(session('message'))
+    <div class="todo__alert--success">
+        {{ session('message') }}
+    </div>
+    @endif
     <!-- 予約状況ブロック -->
     <div class="reservation-status-block">
         <div class="reservation-status-block__title">
@@ -36,9 +41,12 @@ use Illuminate\Support\Facades\Auth;
                     @method('DELETE')
                     @csrf
                     <div class="cancel-icon">
-                        <input type="hidden" name="id" value="{{ $reservation_detail['id'] }}">
-                        <img class="cancel-icon__img" src="/storage/キャンセルのアイコン.png">
+                        <input type="hidden" name="id" value="{{ $reservation_detail->id }}">
+                        <input class="cancel-icon__img" type="image" src="/storage/キャンセルのアイコン.png" alt="キャンセル" onclick="return confirm('予約{{$index+1}}を取り消しますか？')">
+                        
+
                     </div>
+                </form>
             </div>
 
             <table class="reservation-details">
