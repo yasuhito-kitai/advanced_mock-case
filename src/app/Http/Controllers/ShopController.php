@@ -71,7 +71,6 @@ class ShopController extends Controller
 
 
 
-
     // 予約操作
     public function reservation(Request $request)
     {

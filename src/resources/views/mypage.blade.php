@@ -43,36 +43,28 @@ use Illuminate\Support\Facades\Auth;
                     <div class="cancel-icon">
                         <input type="hidden" name="id" value="{{ $reservation_detail->id }}">
                         <input class="cancel-icon__img" type="image" src="/storage/キャンセルのアイコン.png" alt="キャンセル" onclick="return confirm('予約{{$index+1}}を取り消しますか？')">
-                        
-
                     </div>
                 </form>
             </div>
 
             <table class="reservation-details">
-
                 <tr class="reservation-item__row">
                     <th class="reservation-item__header">Shop</th>
                     <td class="reservation-item__data">{{$reservation_detail->shop->name}}</td>
                 </tr>
-
                 <tr class="reservation-item__row">
                     <th class="reservation-item__header">Date</th>
                     <td class="reservation-item__data">{{$reservation_detail->date}}</td>
                 </tr>
-
                 <tr class="reservation-item__row">
                     <th class="reservation-item__header">Time</th>
                     <td class="reservation-item__data">{{$reservation_detail->time}}</td>
                 </tr>
-
                 <tr class="reservation-item__row">
                     <th class="reservation-item__header">Number</th>
                     <td class="reservation-item__data">{{$reservation_detail->number}}</td>
                 </tr>
-
             </table>
-
         </div>
         @endforeach
     </div>
