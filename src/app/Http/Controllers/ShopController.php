@@ -60,15 +60,14 @@ class ShopController extends Controller
         {
             $favorite_registered->delete();
         }else{
-         Favorite::create([
+        Favorite::create([
             'user_id' => $user->id,
             'shop_id' => $shop_id['shop_id']
         ]);
         }
-    
+
         return back();
 }
-
 
 
     // 予約操作

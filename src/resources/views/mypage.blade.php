@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Auth;
 
 ?>
 
-
 @extends('layouts.app')
 
 @section('css')
@@ -106,8 +105,6 @@ use Illuminate\Support\Facades\Auth;
             </div>
             @endforeach
         </div>
-
     </div>
-
 </div>
 @stop
