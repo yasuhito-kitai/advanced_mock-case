@@ -82,5 +82,9 @@
     /* 疑似要素に必須 */
     background: gainsboro;
         /* ハートの色 */
+}
 
+
+.search-form__item{
+    display: flex;
 }

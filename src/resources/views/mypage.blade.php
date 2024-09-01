@@ -29,19 +29,19 @@ use Illuminate\Support\Facades\Auth;
 
             <div class="reservation-status__unit__header">
                 <div class="watch-icon">
-                    <img class="watch-icon__img" src="/storage/時計のアイコン.png">
+                    <img class="watch-icon__img" src="{{asset('img/時計のアイコン.png')}}">
                 </div>
 
                 <div class="reservation-number">
                     <p class="reservation-number__text">予約 {{$index+1}}</p>
                 </div>
 
-                <form class="cancel-form" action="/reserve/cancel" method="post">
+                <form class=" cancel-form" action="/reserve/cancel" method="post">
                     @method('DELETE')
                     @csrf
                     <div class="cancel-icon">
                         <input type="hidden" name="id" value="{{ $reservation_detail->id }}">
-                        <input class="cancel-icon__img" type="image" src="/storage/キャンセルのアイコン.png" alt="キャンセル" onclick="return confirm('予約{{$index+1}}を取り消しますか？')">
+                        <input class="cancel-icon__img" type="image" src="{{asset('img/キャンセルのアイコン.png')}}" alt="キャンセル" onclick="return confirm('予約{{$index+1}}を取り消しますか？')">
                     </div>
                 </form>
             </div>

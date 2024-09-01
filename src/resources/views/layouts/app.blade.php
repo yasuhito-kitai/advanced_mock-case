@@ -40,6 +40,8 @@
         </div>
 
         <div class="logo">Rese</div>
+
+        @yield('header')
     </header>
 
     <main>

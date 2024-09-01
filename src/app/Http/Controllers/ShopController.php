@@ -5,8 +5,6 @@ use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Shop;
 use App\Models\Favorite;
-use App\Models\Number;
-use App\Models\Time;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,14 +15,16 @@ class ShopController extends Controller
     // 店舗一覧
     public function index()
     {
-        $shop_all = Shop::all();
-        $favorites=Favorite::all();
+        $areas = Area::all();
+        $genres = Genre::all();
+        $shops = Shop::all();
         if (Auth::check()) {
             $user = Auth::user();
             $user_id = $user->id;
-            return view('index',['shop_all' => $shop_all,'user_id'=>$user_id,'favorites'=>$favorites]);
+            $favorites=Favorite::all();
+            return view('index',['areas' => $areas,'genres' => $genres, 'shops' => $shops,'user_id'=>$user_id,'favorites'=>$favorites]);
         }else{
-            return view('index', ['shop_all' => $shop_all]);
+            return view('index', ['areas' => $areas, 'genres' => $genres, 'shops' => $shops]);
         }
 
     }
@@ -109,4 +109,21 @@ class ShopController extends Controller
 
         return view('mypage',['reservation_details'=> $reservation_details,'user_id' => $user_id,'favorites' => $favorites]);
     }
+
+    public function search_shop(Request $request)
+    {
+        $shops = Shop::with('area','genre')->AreaSearch($request->area_id)->GenreSearch($request->genre_id)->KeywordSearch($request->keyword)->get();
+        $areas = Area::all();
+        $genres = Genre::all();
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user_id = $user->id;
+            $favorites = Favorite::all();
+            return view('index', ['areas' => $areas, 'genres' => $genres, 'shops' => $shops, 'user_id' => $user_id, 'favorites' => $favorites]);
+        } else {
+            return view('index', ['areas' => $areas, 'genres' => $genres, 'shops' => $shops]);
+        }
+    }
 }
+

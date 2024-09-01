@@ -4,9 +4,34 @@
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 @stop
 
+@section('header')
+<div class="search-form__flex">
+    <form class="search-form" action="/search_shop" method="get">
+        <div class="search-form__item">
+            <select select class="search-form__item-select" name="area_id" onchange="submit(this.form)">
+                <option value="">All area</option>
+                @foreach($areas as $area)
+                <option value="{{$area->id}}">{{$area->name}}</option>
+                @endforeach
+            </select>
+
+            <select select class="search-form__item-select" name="genre_id" onchange="submit(this.form)">
+                <option value="">All genre</option>
+                @foreach($genres as $genre)
+                <option value="{{$genre->id}}">{{$genre->name}}</option>
+                @endforeach
+            </select>
+
+            <input class="search-form__item--input" type="text" name="keyword" placeholder="Search..." >
+        </div>
+    </form>
+</div>
+@stop
+
+
 @section('content')
 <div class="flex__item">
-    @foreach($shop_all as $shop)
+    @foreach($shops as $shop)
     <div class="card">
         <div class="card__img">
             <img src="{{$shop->image}}" alt="shop image">
@@ -30,13 +55,13 @@
                 <form class="card__content__favorite-form" action="/favorite/{id}" method="post">
                     @csrf
                     @if (Auth::check())
-                        @if ($favorites->where("user_id","=",$user_id)->where("shop_id","=",$shop["id"])->first())
-                            <button class="heart red" type="submit" name="shop_id" value="{{$shop->id}}"></button>
-                        @else
-                            <button class="heart gray" type="submit" name="shop_id" value="{{$shop->id}}"></button>
-                        @endif
+                    @if ($favorites->where("user_id","=",$user_id)->where("shop_id","=",$shop["id"])->first())
+                    <button class="heart red" type="submit" name="shop_id" value="{{$shop->id}}"></button>
                     @else
-                        <button class="heart gray" type="submit" name="shop_id" value="{{$shop->id}}"></button>
+                    <button class="heart gray" type="submit" name="shop_id" value="{{$shop->id}}"></button>
+                    @endif
+                    @else
+                    <button class="heart gray" type="submit" name="shop_id" value="{{$shop->id}}"></button>
                     @endif
                 </form>
             </div>
