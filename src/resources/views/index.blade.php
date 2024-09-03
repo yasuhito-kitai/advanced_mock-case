@@ -8,21 +8,21 @@
 <div class="search-form__flex">
     <form class="search-form" action="/search_shop" method="get">
         <div class="search-form__item">
-            <select select class="search-form__item-select" name="area_id" onchange="submit(this.form)">
+            <select class="search-form__item-select" name="area_id" onchange="submit(this.form)">
                 <option value="">All area</option>
                 @foreach($areas as $area)
-                <option value="{{$area->id}}">{{$area->name}}</option>
+                <option value="{{$area->id}}" {{request()->area_id=="$area->id"?"selected":"";}}>{{$area->name}}</option>
                 @endforeach
             </select>
 
-            <select select class="search-form__item-select" name="genre_id" onchange="submit(this.form)">
+            <select class="search-form__item-select" name="genre_id" onchange="submit(this.form)">
                 <option value="">All genre</option>
                 @foreach($genres as $genre)
-                <option value="{{$genre->id}}">{{$genre->name}}</option>
+                <option value="{{$genre->id}}" {{request()->genre_id=="$genre->id"?"selected":"";}}>{{$genre->name}}</option>
                 @endforeach
             </select>
 
-            <input class="search-form__item--input" type="text" name="keyword" placeholder="Search..." >
+            <input class="search-form__item--input" type="text" name="keyword" placeholder="Search..." value="{{request()->keyword}}">
         </div>
     </form>
 </div>
