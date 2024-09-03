@@ -11,14 +11,14 @@
             <select class="search-form__item-select" name="area_id" onchange="submit(this.form)">
                 <option value="">All area</option>
                 @foreach($areas as $area)
-                <option value="{{$area->id}}" {{request()->area_id=="$area->id"?"selected":"";}}>{{$area->name}}</option>
+                <option value="{{$area->id}}" {{request()->area_id=="$area->id" ? "selected" : "";}}>{{$area->name}}</option>
                 @endforeach
             </select>
 
             <select class="search-form__item-select" name="genre_id" onchange="submit(this.form)">
                 <option value="">All genre</option>
                 @foreach($genres as $genre)
-                <option value="{{$genre->id}}" {{request()->genre_id=="$genre->id"?"selected":"";}}>{{$genre->name}}</option>
+                <option value="{{$genre->id}}" {{request()->genre_id=="$genre->id" ? "selected" : "";}}>{{$genre->name}}</option>
                 @endforeach
             </select>
 
