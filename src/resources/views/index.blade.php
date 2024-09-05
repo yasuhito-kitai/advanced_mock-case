@@ -7,6 +7,7 @@
 @section('header')
 <div class="search-form__flex">
     <form class="search-form" action="/search_shop" method="get">
+
         <div class="search-form__item">
             <select class="search-form__item-select" name="area_id" onchange="submit(this.form)">
                 <option value="">All area</option>
@@ -30,6 +31,11 @@
 
 
 @section('content')
+@if (count($shops) === 0)
+<div class="notFound-message">
+    <p>条件に合う店舗が見つかりませんでした。条件を変えて検索してください。</p>
+</div>
+@endif
 <div class="flex__item">
     @foreach($shops as $shop)
     <div class="card">

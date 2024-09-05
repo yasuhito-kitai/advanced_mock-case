@@ -1,9 +1,3 @@
-<?php
-
-use Carbon\Carbon;
-
-?>
-
 @extends('layouts.app')
 
 @section('css')
@@ -59,6 +53,8 @@ use Carbon\Carbon;
                 @csrf
                 <!-- 店舗id -->
                 <input type="hidden" name="shop_id" value="{{$shop_detail->id}}">
+                <!-- 店舗名 -->
+                <input type="hidden" name="shop_name" value="{{$shop_detail->name}}">
                 <!-- 日付 -->
                 <input class="reservation-block__content-input--date" name="date" type="date" min="{{$today}}">
                 <!-- 時間 -->

@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 @section('content')
 <p class="user-name"><?php $user = Auth::user(); ?>{{ $user->name }}さん</p>
-
-<div class="whole-container">
     @if(session('message'))
     <div class="todo__alert--success">
-        {{ session('message') }}
+        <p>{{ session('message') }}</p>
     </div>
     @endif
+<div class="whole-container">
+
     <!-- 予約状況ブロック -->
     <div class="reservation-status-block">
         <div class="reservation-status-block__title">

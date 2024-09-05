@@ -92,6 +92,8 @@ class ShopController extends Controller
         return redirect()->back();
     }
 
+
+
     // 予約キャンセル
     public function destroy(Request $request)
     {
@@ -100,11 +102,10 @@ class ShopController extends Controller
     }
 
     // マイページ
-    public function mypage(Request $request)
-    {
-        $reservation_details = Reservation::with('shop')->get();
-        $user = Auth::user();
+    public function mypage()
+    {        $user = Auth::user();
         $user_id = $user->id;
+        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->get();
         $favorites = Favorite::where("user_id","=","$user_id")->get();
 
         return view('mypage',['reservation_details'=> $reservation_details,'user_id' => $user_id,'favorites' => $favorites]);
