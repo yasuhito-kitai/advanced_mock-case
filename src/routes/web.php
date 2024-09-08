@@ -13,7 +13,10 @@ Route::get('/search_shop',[ShopController::class, 'search_shop']);
 
 Route::group(['middleware' => ['auth','verified']], function () {
     Route::post('/reserve', [ShopController::class, 'reservation']);
-    Route::delete('/reserve/cancel', [ShopController::class, 'destroy']);
+    Route::get('/reserve/change', [ShopController::class, 'change']);
+    Route::post('/reserve/change/confirm', [ShopController::class, 'change_confirm']);
+    Route::patch('/update', [ShopController::class, 'update']);
+    Route::delete('/reserve/cancel', [ShopController::class, 'cancel']);
     Route::post('/favorite/{id}', [ShopController::class, 'favorite']);
     Route::get('/mypage', [ShopController::class, 'mypage']);
 });

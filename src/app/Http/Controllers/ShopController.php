@@ -92,10 +92,37 @@ class ShopController extends Controller
         return redirect()->back();
     }
 
+    // 予約変更入力
+    public function change()
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $today = Carbon::now()->format('Y-m-d');
+        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->get();
+        $favorites = Favorite::where("user_id", "=", "$user_id")->get();
+
+        return view('change', ['reservation_details' => $reservation_details, 'user_id' => $user_id, 'today' => $today, 'favorites' => $favorites]);
+    }
+
+    // 変更内容確認
+    public function change_confirm(Request $request)
+    {
+        $before_details=$request->only(['name', 'before_date', 'before_time', 'before_number']);
+        $after_details=$request->only(['id','name','after_date','after_time','after_number']);
+        return view('change_confirm',['before_details'=>$before_details,'after_details'=> $after_details]);
+    }
+
+    // 変更実行
+    public function update(Request $request)
+    {
+        $update_item = $request->only(['date', 'time', 'number']);
+        Reservation::find($request->id)->update($update_item);
+        return redirect('/mypage')->with('message', '予約内容を変更しました');
+    }
 
 
     // 予約キャンセル
-    public function destroy(Request $request)
+    public function cancel(Request $request)
     {
         Reservation::find($request->id)->delete();
         return redirect('/mypage')->with('message', '予約を取り消しました');
@@ -103,7 +130,8 @@ class ShopController extends Controller
 
     // マイページ
     public function mypage()
-    {        $user = Auth::user();
+    {
+        $user = Auth::user();
         $user_id = $user->id;
         $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->get();
         $favorites = Favorite::where("user_id","=","$user_id")->get();

@@ -35,14 +35,20 @@ use Illuminate\Support\Facades\Auth;
                 <div class="reservation-number">
                     <p class="reservation-number__text">予約 {{$index+1}}</p>
                 </div>
-
+                @if($reservation_detail->id ==request('id'))
+                <form class="change-form" action="/mypage" method="get">
+                    <div class="reservation-change">
+                        <input class="reservation-change__button" type="submit" value="戻る"></input>
+                    </div>
+                </form>
+                @else
                 <form class="change-form" action="/reserve/change" method="get">
                     <div class="reservation-change">
                         <input type="hidden" name="id" value="{{ $reservation_detail->id }}">
                         <input class="reservation-change__button" type="submit" value="予約内容の変更"></input>
                     </div>
                 </form>
-
+                @endif
                 <form class="cancel-form" action="/reserve/cancel" method="post">
                     @method('DELETE')
                     @csrf
@@ -53,6 +59,75 @@ use Illuminate\Support\Facades\Auth;
                 </form>
             </div>
 
+            @if($reservation_detail->id ==request('id'))
+            <div class="request-message">
+                <p>変更内容を入力してください</p>
+            </div>
+
+            <form class="reservation-block__content-form" action="/reserve/change/confirm" method="post">
+                @csrf
+                <div class="reservation-block__content">
+                    <!-- 店舗名 -->
+                    <input type="hidden" name="id" value="{{ $reservation_detail->id }}">
+                    <input type="hidden" name="name" value="{{ $reservation_detail->shop->name }}">
+                    <table class="reservation-details">
+                        <tr class="reservation-item__row">
+                            <th class="reservation-item__header">Shop</th>
+                            <td class="reservation-item__data">{{$reservation_detail->shop->name}}</td>
+                        </tr>
+                        <!-- 日付 -->
+                        <tr class="reservation-item__row">
+                            <th class="reservation-item__header">Date</th>
+                            <td class="reservation-item__data">
+                                <!-- 変更前 -->
+                                <input type="hidden" name="before_date" value="{{ $reservation_detail->date }}">
+                                <!-- 変更後 -->
+                                <input class="reservation-block__content-input--date" name="after_date" type="date" min="{{$today}}" value="{{$reservation_detail->date}}">
+                            </td>
+                        </tr>
+                        <!-- 時間 -->
+                        <tr class="reservation-item__row">
+                            <th class="reservation-item__header">Time</th>
+                            <td class="reservation-item__data">
+                                <!-- 変更前 -->
+                                <input type="hidden" name="before_time" value="{{ $reservation_detail->time }}">
+                                <!-- 変更後 -->
+                                <select class="reservation-block__content-select--time" name="after_time">
+                                    <option value="{{$reservation_detail->time}}">{{$reservation_detail->time}}</option>
+                                    @for ($h=11; $h<=23; $h++){ echo<option value="{{$h .':' . '00'}}">{{$h .':' . '00'}}</option>,
+                                        <option value="{{$h .':' . '15'}}">{{$h .':' . '15'}}</option>,
+                                        <option value="{{$h .':' . '30'}}">{{$h .':' . '30'}}</option>,
+                                        <option value="{{$h .':' . '45'}}">{{$h .':' . '45'}}</option>
+                                        }
+                                        @endfor
+                                </select>
+                            </td>
+                        </tr>
+                        <!-- 人数 -->
+                        <tr class="reservation-item__row">
+                            <th class="reservation-item__header">Number</th>
+                            <td class="reservation-item__data">
+                                <!-- 変更前 -->
+                                <input type="hidden" name="before_number" value="{{ $reservation_detail->number }}">
+                                <!-- 変更後 -->
+                                <select class="reservation-block__content-select--number" name="after_number">
+                                    <option value="{{$reservation_detail->number}}">{{$reservation_detail->number}}</option>
+                                    @for ($i=1; $i<=50; $i++) {
+                                        echo<option value="{{$i}}人">{{$i}}人</option>
+                                        }
+                                        @endfor
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 予約ボタン -->
+                <div class="reservation-block__content-button">
+                    <button type="submit" class="reservation-block__content-button btn">確認画面へ</button>
+                </div>
+            </form>
+            @else
             <table class="reservation-details">
                 <tr class="reservation-item__row">
                     <th class="reservation-item__header">Shop</th>
@@ -71,7 +146,9 @@ use Illuminate\Support\Facades\Auth;
                     <td class="reservation-item__data">{{$reservation_detail->number}}</td>
                 </tr>
             </table>
+            @endif
         </div>
+
         @endforeach
     </div>
 
