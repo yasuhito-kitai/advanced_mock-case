@@ -1,3 +1,8 @@
 .whole-container {
     display: flex;
 }
+
+.arrow {
+    font-size: 2rem;
+    display: flex;
+}

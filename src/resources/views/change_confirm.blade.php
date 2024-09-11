@@ -5,6 +5,9 @@
 @stop
 
 @section('content')
+<div class="thanks-card__back-button">
+    <a class="thanks-card__back-button--button" href="{{ url()->previous() }}">戻る</a>
+</div>
 <div class="whole-container">
     <!--変更前 -->
     <div class="before-card">
@@ -30,6 +33,13 @@
             </table>
         </div>
     </div>
+
+    <div class="arrow">
+
+        <p>></p>
+
+    </div>
+
 
 
     <!--変更後 -->

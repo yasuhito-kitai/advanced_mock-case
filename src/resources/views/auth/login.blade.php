@@ -7,7 +7,7 @@
         <form class="login-form__form" action="/login" method="post">
             @csrf
             <div class="auth-form__item">
-                <input class="auth-form__input" type="email" name="email" placeholder="Email" value="{{ old('email') }}">
+                <input class="auth-form__input" type="text" name="email" placeholder="Email" value="{{ old('email') }}">
                 <p class="error-message">
                     @error('email')
                     {{ $message }}

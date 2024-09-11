@@ -36,11 +36,11 @@ use Illuminate\Support\Facades\Auth;
                     <p class="reservation-number__text">予約 {{$index+1}}</p>
                 </div>
                 @if($reservation_detail->id ==request('id'))
-                <form class="change-form" action="/mypage" method="get">
-                    <div class="reservation-change">
-                        <input class="reservation-change__button" type="submit" value="戻る"></input>
+                
+                    <div class="thanks-card__back-button">
+                        <a class="thanks-card__back-button--button" href="/mypage">戻る</a>
                     </div>
-                </form>
+                
                 @else
                 <form class="change-form" action="/reserve/change" method="get">
                     <div class="reservation-change">
@@ -49,6 +49,9 @@ use Illuminate\Support\Facades\Auth;
                     </div>
                 </form>
                 @endif
+
+                @if($reservation_detail->id ==request('id'))
+                @else
                 <form class="cancel-form" action="/reserve/cancel" method="post">
                     @method('DELETE')
                     @csrf
@@ -57,6 +60,7 @@ use Illuminate\Support\Facades\Auth;
                         <input class="cancel-icon__img" type="image" src="{{asset('img/キャンセルのアイコン.png')}}" alt="予約キャンセル" onclick="return confirm('予約{{$index+1}}を取り消しますか？')">
                     </div>
                 </form>
+                @endif
             </div>
 
             @if($reservation_detail->id ==request('id'))

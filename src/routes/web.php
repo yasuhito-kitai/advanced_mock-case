@@ -12,6 +12,7 @@ Route::post('/done', [ShopController::class, 'done']);
 Route::get('/search_shop',[ShopController::class, 'search_shop']);
 
 Route::group(['middleware' => ['auth','verified']], function () {
+    Route::get('/mypage/detail/{id}', [ShopController::class, 'detail']);
     Route::post('/reserve', [ShopController::class, 'reservation']);
     Route::get('/reserve/change', [ShopController::class, 'change']);
     Route::post('/reserve/change/confirm', [ShopController::class, 'change_confirm']);

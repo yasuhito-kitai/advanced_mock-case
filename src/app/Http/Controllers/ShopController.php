@@ -9,6 +9,7 @@ use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ReservationRequest;
 
 class ShopController extends Controller
 {
@@ -42,11 +43,14 @@ class ShopController extends Controller
         $shop_detail = Shop::find($id);
         //遷移元URLの取得
         $prevUrl = $_SERVER['HTTP_REFERER'];
+        //現在のパスの取得
+        $currentUrl = $_SERVER['REQUEST_URI'];
 
         // カレンダーが昨日以前を非表示にするため「今日」を定義
         $today = Carbon::now()->format('Y-m-d');
+
         // 店舗の詳細、人数、時間をビューに渡す。カレンダーのminには「今日」を渡す。戻るボタンの分岐のために遷移元URLも送る。
-        return view('detail', ['shop_detail' => $shop_detail,'today' => $today, 'prevUrl'=> $prevUrl]);
+        return view('detail', ['shop_detail' => $shop_detail,'today' => $today, 'prevUrl'=> $prevUrl, 'currentUrl'=> $currentUrl]);
     }
 
     // お気に入り
@@ -55,6 +59,7 @@ class ShopController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
         $shop_id = $request->all();
+        unset($shop_id['_token']);
         $favorite_registered = Favorite::where("user_id", "=", $user_id)->where("shop_id", "=", $shop_id["shop_id"])->first();
         if($favorite_registered)
         {
@@ -71,10 +76,11 @@ class ShopController extends Controller
 
 
     // 予約操作
-    public function reservation(Request $request)
+    public function reservation(ReservationRequest $request)
     {
         $user = Auth::user();
         $reservation_details = $request->all();
+        unset($reservation_details['_token']);
         Reservation::create([
             'user_id' => $user->id,
             'shop_id' => $reservation_details['shop_id'],
@@ -116,6 +122,7 @@ class ShopController extends Controller
     public function update(Request $request)
     {
         $update_item = $request->only(['date', 'time', 'number']);
+        unset($update_item['_token']);
         Reservation::find($request->id)->update($update_item);
         return redirect('/mypage')->with('message', '予約内容を変更しました');
     }
