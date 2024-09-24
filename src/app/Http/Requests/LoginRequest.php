@@ -22,8 +22,9 @@ class LoginRequest extends FortifyLoginRequest
     public function rules(): array
     {
         return [
-            "email" => ["required", "string", "email", "max:256"],
-            "password" => ["required", "between:8, 20"],
+            "email" => ["required","string", "email", "max:256"],
+            "password" => ["required", "between:8, 20",],
+            
         ];
     }
 
@@ -33,9 +34,10 @@ class LoginRequest extends FortifyLoginRequest
             "email.required" => "メールアドレスを入力してください",
             "email.string" => 'メールアドレスを文字列で入力してください',
             "email.email" => "メールアドレス形式で入力してください",
-            "email.max" => "メールアドレスは256文字以下で入力してください",
+            "email.max" => "メールアドレス、またはパスワードが違います。",
             "password.required" => "パスワードを入力してください",
-            "password.between" => "パスワードは8字以上、20字以内で入力してください"
+            "password.between" => "メールアドレス、またはパスワードが違います。",
+            'failed'   => '認証情報と一致するレコードがありません。'
         ];
     }
 }

@@ -6,11 +6,11 @@
 
 @section('content')
 <div class="auth-form">
-    <h2 class="section-title">Registration</h2>
+    <h2 class="section-title">OwnerRegistration</h2>
     <div class="auth-form__group">
         <form class="auth-form__form" action="/register" method="post">
             @csrf
-            <input type="hidden" name="role" value="general">
+            <input type="hidden" name="role" value="owner">
             <div class="auth-form__item">
                 <input class="auth-form__input" type="text" name="name" placeholder="Username" value="{{ old('name') }}">
                 <p class="error-message">

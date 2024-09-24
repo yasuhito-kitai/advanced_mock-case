@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 @extends('layouts.app')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('css/common.css') }}">
 <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
 @stop
 
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
         <div class="reservation-status-block__title">
             <h1 class="reservation-status__title-text">予約状況</h1>
         </div>
+
         @foreach($reservation_details as $index=>$reservation_detail)
         <div class="reservation-status__unit">
 
@@ -81,29 +83,29 @@ use Illuminate\Support\Facades\Auth;
             <h1 class="favorite-shops__title__title-text">お気に入り店舗</h1>
         </div>
 
-        <div class="flex__item">
+        <div class="shop-card__flex">
             @foreach($favorites as $favorite)
-            <div class="card">
-                <div class="card__img">
+            <div class="shop-card">
+                <div class="shop-card__img">
                     <img src="{{$favorite->shop->image}}" alt="shop image">
                 </div>
 
-                <div class="card__content">
-                    <h2 class="card__content-ttl">{{$favorite->shop->name}}</h2>
-                    <div class="card__content-tag">
-                        <p class="card__content-tag-item">#{{$favorite->shop->area->name}}</p>
-                        <p class="card__content-tag-item">#{{$favorite->shop->genre->name}}</p>
+                <div class="shop-card__content">
+                    <h2 class="shop-card__content-ttl">{{$favorite->shop->name}}</h2>
+                    <div class="shop-card__content-tag">
+                        <p class="shop-card__content-tag-item">#{{$favorite->shop->area->name}}</p>
+                        <p class="shop-card__content-tag-item">#{{$favorite->shop->genre->name}}</p>
                     </div>
 
-                    <div class="card__content__detail">
-                        <form class="card__content__detail-form" action="/mypage/detail/{{$favorite->shop->id}}" method="get">
+                    <div class="shop-card__content__detail">
+                        <form class="shop-card__content__detail-form" action="/mypage/detail/{{$favorite->shop->id}}" method="get">
                             @csrf
                             <input class="card__content__detail-btn" type="submit" value="詳しくみる">
                         </form>
                     </div>
 
-                    <div class="card__content__favorite">
-                        <form class="card__content__favorite-form" action="/favorite/{id}" method="post">
+                    <div class="shop-card__content__favorite">
+                        <form class="shop-card__content__favorite-form" action="/favorite/{id}" method="post">
                             @csrf
                             <button class="heart red" type="submit" name="shop_id" value="{{$favorite->shop->id}}"></button>
                         </form>

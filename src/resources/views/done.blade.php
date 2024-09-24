@@ -13,4 +13,5 @@
     <div class="thanks-card__back-button">
         <a class="thanks-card__back-button--button" href="{{ url()->previous() }}">戻る</a>
     </div>
-    @stop
+</div>
+@stop

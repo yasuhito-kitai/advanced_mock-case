@@ -2,24 +2,45 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OwnerController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
+
 Route::get('/', [ShopController::class, 'index']);
 Route::get('/detail/{id}', [ShopController::class, 'detail']);
-Route::get('/thanks', [ShopController::class, 'thanks']);
-Route::post('/done', [ShopController::class, 'done']);
+
 Route::get('/search_shop',[ShopController::class, 'search_shop']);
 
+Route::post('/done', [ReservationController::class, 'done']);
+
+
 Route::group(['middleware' => ['auth','verified']], function () {
-    Route::get('/mypage/detail/{id}', [ShopController::class, 'detail']);
-    Route::post('/reserve', [ShopController::class, 'reservation']);
-    Route::get('/reserve/change', [ShopController::class, 'change']);
-    Route::post('/reserve/change/confirm', [ShopController::class, 'change_confirm']);
-    Route::patch('/update', [ShopController::class, 'update']);
-    Route::delete('/reserve/cancel', [ShopController::class, 'cancel']);
-    Route::post('/favorite/{id}', [ShopController::class, 'favorite']);
     Route::get('/mypage', [ShopController::class, 'mypage']);
+    Route::get('/mypage/detail/{id}', [ShopController::class, 'detail']);
+    Route::post('/favorite/{id}', [ShopController::class, 'favorite']);
+    Route::get('/thanks', [ShopController::class, 'thanks']);
+    
+    Route::post('/reserve', [ReservationController::class, 'reserve']);
+    Route::get('/reserve/change', [ReservationController::class, 'change']);
+    Route::post('/reserve/change/confirm', [ReservationController::class, 'change_confirm']);
+    Route::patch('/reserve/change/update', [ReservationController::class, 'update']);
+    Route::delete('/reserve/cancel', [ReservationController::class, 'destroy']);
+
+    
+});
+
+//管理者用ルート
+Route::group(['middleware' => ['auth', 'can:admin']], function () {
+    Route::get('/admin-page', [AdminController::class, 'index']);
+});
+
+//店舗代表者用ルート
+Route::group(['middleware' => ['auth', 'can:owner']], function () {
+    Route::get('/owner-page', [OwnerController::class, 'index']);
+    Route::post('shop/register',[OwnerController::class,'create']);
 });
 
 //ユーザー登録後にメール認証を促すページに遷移

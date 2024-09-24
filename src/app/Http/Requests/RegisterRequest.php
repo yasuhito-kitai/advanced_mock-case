@@ -23,7 +23,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             "name" => ["required", "string", "max:30"],
-            "email" => ["required", "string", "email", "max:256", "unique:users,email"],
+            "email" => ["required", "string", "email", "max:256", "unique:users"],
             "password" => ["required", "between:8, 20"],
         ];
     }
@@ -38,6 +38,7 @@ class RegisterRequest extends FormRequest
             "email.string" => 'メールアドレスは文字列で入力してください',
             "email.email" => "メールアドレス形式で入力してください",
             "email.max" => "メールアドレスは256文字以下で入力してください",
+            "email.unique" => "すでに登録されているメールアドレスです",
             "password.required" => "パスワードを入力してください",
             "password.between" => "パスワードは8字以上、20字以内で入力してください",
         ];

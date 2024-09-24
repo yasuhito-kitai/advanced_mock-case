@@ -34,6 +34,14 @@
                         </form>
                     </li>
                     <li class="nav__item"><a href="/mypage">Mypage</a></li>
+
+                    @can('admin')<!-- 管理者のみ表示 -->
+                    <li class="nav__item"><a href="/admin-page">Admin-page</a></li>
+                    @endcan
+
+                    @can('owner')<!-- 店舗代表者のみ表示 -->
+                    <li class="nav__item"><a href="/owner-page">Owner-page</a></li>
+                    @endcan
                     @endauth
                 </ul>
             </nav>

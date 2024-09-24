@@ -5,8 +5,8 @@
 @stop
 
 @section('content')
-<div class="thanks-card__back-button">
-    <a class="thanks-card__back-button--button" href="{{ url()->previous() }}">戻る</a>
+<div class="back">
+    <a class="back__button" href="{{ url()->previous() }}">戻る</a>
 </div>
 <div class="whole-container">
     <!--変更前 -->
@@ -33,7 +33,7 @@
             </table>
         </div>
     </div>
-
+    
     <div class="arrow">
 
         <p>></p>
@@ -43,7 +43,7 @@
 
 
     <!--変更後 -->
-    <form class="change-form" action="/update" method="post">
+    <form class="change-form" action="/reserve/change/update" method="post">
         @csrf
         @method('PATCH')
         <div class="after-card">
@@ -73,8 +73,8 @@
                 </table>
             </div>
 
-            <div class="thanks-card__back-button">
-                <button type="submit" class="">予約を変更する</button>
+            <div class="change-submit">
+                <button class="change-submit__button" type="submit" class="">予約を変更する</button>
             </div>
         </div>
     </form>

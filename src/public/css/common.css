@@ -99,3 +99,100 @@ html {
     padding:20rem;
     /* メニューを画面に入れる */
 }
+
+
+
+
+/* 店舗カード */
+.shop-card__flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.shop-card {
+    width: 36rem;
+    margin: 10rem 1rem;
+    box-shadow: 0rem 0.3rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.shop-card__img img {
+    width: 100%;
+}
+
+.shop-card__content {
+    padding: 1.5rem 2.5rem;
+
+}
+
+.shop-card__content-ttl {
+    font-size: 1.8rem;
+    margin: 0 auto;
+}
+
+
+.shop-card__content-tag {
+    font-size: 1.4rem;
+}
+
+.shop-card__content-tag-item {
+    display: inline-block;
+    /* 横並びにするためにinline-blockを指定 */
+    margin: 0 auto;
+}
+
+/* ハート */
+.heart {
+    width: 5rem;
+    /* 正方形を作る */
+    height: 5rem;
+    /* 正方形を作る */
+    position: relative;
+    /* 基準位置とする */
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    /* 疑似要素に必須 */
+    width: 50%;
+    /* ハートの丸い部分の大きさにかかわる */
+    height: 80%;
+    /* ハートの高さにかかわる */
+
+    border-radius: 25px 25px 0 0;
+    /* ハートの半円を生成 */
+    display: block;
+    /* ブロック要素にする */
+    position: absolute;
+    /* 相対位置に指定 */
+}
+
+.heart::before {
+    transform: rotate(-45deg);
+    /* 左に回転 */
+    left: 14%;
+    /* 左からの位置を指定 */
+    top: 1%
+}
+
+.heart::after {
+    transform: rotate(45deg);
+    /* 右に回転 */
+    right: 14%;
+    /* 右からの位置を指定 */
+    top: 1%
+}
+
+.red::before,
+.red::after {
+    background: red;
+}
+
+.gray::before,
+.gray::after {
+    background: gainsboro;
+}

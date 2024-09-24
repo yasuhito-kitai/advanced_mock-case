@@ -30,7 +30,7 @@
 
         <div class="detail-block__content">
             <div class="detail-block__content__img">
-                <img src="{{$shop_detail->image}}" alt="shop image">
+                <img src="{{ asset("$shop_detail->image")}}">
             </div>
 
             <div class="detail-block__content__tag">
