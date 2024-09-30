@@ -5,6 +5,9 @@
 @stop
 
 @section('content')
+
+<!-- 店舗代表者以外 -->
+@cannot('owner')
 <div class="whole-container">
     <!-- 店舗詳細ブロック -->
     <div class="detail-block">
@@ -30,7 +33,7 @@
 
         <div class="detail-block__content">
             <div class="detail-block__content__img">
-                <img src="{{ asset("$shop_detail->image")}}">
+                <img src="{{$shop_detail->image}}">
             </div>
 
             <div class="detail-block__content__tag">
@@ -101,4 +104,54 @@
         </div>
     </div>
 </div>
+@endcan
+
+
+<!-- 店舗代表者のみ -->
+@can('owner')
+<div class="whole-container">
+    <!-- 店舗詳細ブロック -->
+    <div class="detail-block">
+        <div class="detail-block__header">
+            <div class="detail-block__back-button">
+                @if (preg_match("/owner-page/", $prevUrl))
+                <a class="detail-block__back-button--button" href="/owner-page">＜</a>
+
+                @elseif (preg_match("/myshop/", $currentUrl))
+                <a class="detail-block__back-button--button" href="/owner-page">＜</a>
+                @else
+                <a class="detail-block__back-button--button" href="/">＜</a>
+                @endif
+            </div>
+
+            <div class="detail-block__header__title">
+                <h2 class="detail-block__header__title-text">{{$shop_detail->name}}</h2>
+            </div>
+            @if($shop_detail->user_id == $user_id)
+            <form class="update-form" action="/shop/edit/{{$shop_detail->id}}" method="get">
+                <div class="shop-content-update">
+                    <input type="hidden" name="id" value="{{ $shop_detail->id }}">
+                    <input class="shop-content-update__button" type="submit" value="店舗情報修正"></input>
+                </div>
+            </form>
+            @endif
+        </div>
+
+        <div class="detail-block__content">
+            <div class="detail-block__content__img">
+                <img src="{{$shop_detail->image}}">
+            </div>
+
+            <div class="detail-block__content__tag">
+                <p class="detail-block__content__tag-item">#{{$shop_detail->area->name}}</p>
+                <p class="detail-block__content__tag-item">#{{$shop_detail->genre->name}}</p>
+            </div>
+
+            <div class="detail-content__overview">
+                <p class="detail-content__overview-text">{{$shop_detail->overview}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+@endcan
 @stop

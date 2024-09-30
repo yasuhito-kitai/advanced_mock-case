@@ -43,7 +43,7 @@ class ReservationController extends Controller
         $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->get();
         $favorites = Favorite::where("user_id", "=", "$user_id")->get();
 
-        return view('change', ['reservation_details' => $reservation_details, 'user_id' => $user_id, 'today' => $today, 'favorites' => $favorites]);
+        return view('change_reservation', ['reservation_details' => $reservation_details, 'user_id' => $user_id, 'today' => $today, 'favorites' => $favorites]);
     }
 
     // 変更内容確認
@@ -51,7 +51,7 @@ class ReservationController extends Controller
     {
         $before_details=$request->only(['name', 'before_date', 'before_time', 'before_number']);
         $after_details=$request->only(['id','name','after_date','after_time','after_number']);
-        return view('change_confirm',['before_details'=>$before_details,'after_details'=> $after_details]);
+        return view('change_reservation_confirm',['before_details'=>$before_details,'after_details'=> $after_details]);
     }
 
     // 変更実行

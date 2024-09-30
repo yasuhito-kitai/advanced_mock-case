@@ -40,7 +40,17 @@ Route::group(['middleware' => ['auth', 'can:admin']], function () {
 //店舗代表者用ルート
 Route::group(['middleware' => ['auth', 'can:owner']], function () {
     Route::get('/owner-page', [OwnerController::class, 'index']);
-    Route::post('shop/register',[OwnerController::class,'create']);
+
+    Route::get('/before_day', [OwnerController::class, 'before_day']);
+    Route::get('/next_day', [OwnerController::class, 'next_day']);
+    Route::get('/calendar', [OwnerController::class, 'calendar']);
+
+    Route::get('/myshop/detail/{id}', [ShopController::class, 'detail']);
+    Route::post('shop/register/confirm',[OwnerController::class,'create']);
+    Route::post('shop/register/done', [OwnerController::class, 'store']);
+    Route::get('shop/edit/{id}', [OwnerController::class, 'edit']);
+    Route::post('shop/edit/{id}/confirm', [OwnerController::class, 'update_confirm']);
+    Route::patch('shop/edit/{id}/update', [OwnerController::class, 'update']);
 });
 
 //ユーザー登録後にメール認証を促すページに遷移

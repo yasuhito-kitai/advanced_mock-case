@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-<link rel="stylesheet" href="{{ asset('css/change.css') }}">
+<link rel="stylesheet" href="{{ asset('css/change_reservation.css') }}">
 @stop
 
 @section('content')
@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Auth;
         <div class="reservation-status__unit">
             <div class="reservation-status__unit__header">
                 <div class="watch-icon">
-                    <img class="watch-icon__img" src="{{asset('img/時計のアイコン.png')}}">
+                    <img class="watch-icon__img" src="/img/時計のアイコン.png">
                 </div>
 
                 <div class="reservation-number">
@@ -57,7 +57,7 @@ use Illuminate\Support\Facades\Auth;
                     @csrf
                     <div class="cancel-icon">
                         <input type="hidden" name="id" value="{{ $reservation_detail->id }}">
-                        <input class="cancel-icon__img" type="image" src="{{asset('img/キャンセルのアイコン.png')}}" alt="予約キャンセル" onclick="return confirm('予約{{$index+1}}を取り消しますか？')">
+                        <input class="cancel-icon__img" type="image" src="img/キャンセルのアイコン.png" alt="予約キャンセル" onclick="return confirm('予約{{$index+1}}を取り消しますか？')">
                     </div>
                 </form>
                 @endif
