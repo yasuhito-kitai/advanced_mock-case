@@ -116,7 +116,6 @@
             <div class="detail-block__back-button">
                 @if (preg_match("/owner-page/", $prevUrl))
                 <a class="detail-block__back-button--button" href="/owner-page">＜</a>
-
                 @elseif (preg_match("/myshop/", $currentUrl))
                 <a class="detail-block__back-button--button" href="/owner-page">＜</a>
                 @else

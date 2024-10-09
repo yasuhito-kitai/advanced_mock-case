@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="auth-form">
-    <h2 class="section-title">OwnerRegistration</h2>
+    <h2 class="section-title">店舗代表者登録</h2>
     <div class="auth-form__group">
         <form class="auth-form__form" action="/register" method="post">
             @csrf
@@ -37,9 +37,9 @@
                     @enderror
                 </p>
             </div>
-
             <input class="auth-form__btn" type="submit" value="登録">
         </form>
     </div>
-</div>
+
+
 @stop

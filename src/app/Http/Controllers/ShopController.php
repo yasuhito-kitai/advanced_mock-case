@@ -39,8 +39,6 @@ class ShopController extends Controller
     // 店舗詳細＆予約フォーム
     public function detail($id)
     {
-        $user = Auth::user();
-        $user_id = $user->id;
         // 詳しくみるボタンを押されたカードのidを探す
         $shop_detail = Shop::find($id);
         //遷移元URLの取得
@@ -51,8 +49,15 @@ class ShopController extends Controller
         // カレンダーが昨日以前を非表示にするため「今日」を定義
         $today = Carbon::now()->format('Y-m-d');
 
-        // 店舗の詳細、人数、時間をビューに渡す。カレンダーのminには「今日」を渡す。戻るボタンの分岐のために遷移元URLも送る。
+        if (Auth::check()) {
+        $user = Auth::user();
+        $user_id = $user->id;
+        
         return view('detail', ['user_id'=> $user_id,'shop_detail' => $shop_detail,'today' => $today, 'prevUrl'=> $prevUrl, 'currentUrl'=> $currentUrl]);
+        }else{
+            return view('detail', [ 'shop_detail' => $shop_detail, 'today' => $today, 'prevUrl' => $prevUrl, 'currentUrl' => $currentUrl]);
+
+        }
     }
 
     // お気に入り

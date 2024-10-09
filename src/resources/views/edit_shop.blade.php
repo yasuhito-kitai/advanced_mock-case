@@ -13,7 +13,13 @@
             @csrf
             <div class="detail-block__header">
                 <div class="detail-block__back-button">
-                    <a class="detail-block__back-button--button" href="{{ url()->previous() }}">＜</a>
+                    @if (preg_match("/detail/", $prevUrl))
+                        <a class="detail-block__back-button--button" href="{{ url()->previous() }}">＜</a>
+                    @elseif (preg_match("/myshop/", $prevUrl))
+                        <a class="detail-block__back-button--button" href="{{ url()->previous() }}">＜</a>
+                    @else
+                        <a class="detail-block__back-button--button" href="/myshop/detail/{{$shop_detail->id}}">＜</a>
+                    @endif
                 </div>
 
                 <div class="request-message">

@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="back">
-    <a class="back__button" href="{{ url()->previous() }}">戻る</a>
+    <a class="back__button" href="{{ url()->previous() }}">＜</a>
 </div>
 
 <div class="whole-container">

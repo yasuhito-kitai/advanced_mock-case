@@ -1,0 +1,12 @@
+.address{
+    font-size: 1.5rem;
+}
+
+.input-subject{
+    width: 40rem;
+}
+
+.input-body{
+    width: 40rem;
+    height:10rem ;
+}

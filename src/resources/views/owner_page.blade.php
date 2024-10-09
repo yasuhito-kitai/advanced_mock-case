@@ -10,45 +10,55 @@
     @unless($shop)
     <div class="shop-register-block">
         <h1>店舗情報登録</h1>
-        <p class="shop-register__text">店舗情報を入力してください</p>
 
         <form class="shop-register__form" action="/shop/register/confirm" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="{{$user_id}}">
             <div class="shop-register__item-text">
                 <input class="auth-form__input" type="text" name="name" placeholder="店舗名" value="{{ old('name') }}">
-                <p class="error-message">
+                @error('name')
+                {{ $message }}
+                @enderror
             </div>
 
             <div class="auth-form__item">
+                <div class=" shop-register__item">
+                    <select class="shop-register__item-select" name="area_id">
+                        <option hidden>エリア</option>
+                        @foreach($areas as $area)
+                        <option value="{{$area->id}}" @if($area->id===(int)old('area_id')) selected @endif>{{$area->name}}</option>
+                        @endforeach
+                    </select>
+                    @error('area_id')
+                    {{ $message }}
+                    @enderror
+                </div>
 
-                <select class="shop-register__item-select" name="area_id">
-                    <option hidden>エリア</option>
-                    @foreach($areas as $area)
-                    <option value="{{$area->id}}" @if($area->id===(int)old('area_id')) selected @endif>{{$area->name}}</option>
-                    @endforeach
-                </select>
+                <div class=" shop-register__item">
+                    <select class="shop-register__item-select" name="genre_id">
+                        <option hidden>ジャンル</option>
+                        @foreach($genres as $genre)
+                        <option value="{{$genre->id}}" @if($genre->id===(int)old('genre_id')) selected @endif>{{$genre->name}}</option>
+                        @endforeach
+                    </select>
+                    @error('genre_id')
+                    {{ $message }}
+                    @enderror
+                </div>
 
-            </div>
-            <div class=" shop-register__item">
-                <select class="shop-register__item-select" name="genre_id">
-                    <option hidden>ジャンル</option>
-                    @foreach($genres as $genre)
-                    <option value="{{$genre->id}}" @if($genre->id===(int)old('genre_id')) selected @endif>{{$genre->name}}</option>
-                    @endforeach
-                </select>
-            </div>
+                <div class="shop-register__item-text">
+                    <textarea class="auth-form__input" name="overview" placeholder="概要">{{ old('overview') }}</textarea>
+                    @error('overview')
+                    {{ $message }}
+                    @enderror
+                </div>
 
-            <div class="shop-register__item-text">
-                <textarea class="auth-form__input" name="overview" placeholder="概要">{{ old('overview') }}</textarea>
-            </div>
-
-            <div class="shop-register__item-image">
-                <input type="file" class="auth-form__input" name="image" accept="image/png, image/jpeg, image/jpg, image/gif">
-            </div>
+                <div class="shop-register__item-image">
+                    <input type="file" class="auth-form__input" name="image" accept="image/png, image/jpeg, image/jpg, image/gif">
+                </div>
 
 
-            <input class="shop-register__btn" type="submit" value="確認画面へ">
+                <input class="shop-register__btn" type="submit" value="確認画面へ">
         </form>
     </div>
 </div>
@@ -65,8 +75,12 @@
 
 
     <div class="reservation-list-block">
-
         <div class="display-date__items">
+            <form action="/owner-page" method="get">
+                @csrf
+                <button type="submit">今日</button>
+            </form>
+
             <form action="/before_day" method="get">
                 @csrf
                 <input type="hidden" name="display_date" value="{{$display_date}}">
@@ -80,16 +94,15 @@
                 <input type="hidden" name="display_date" value="{{$display_date}}">
                 <input class="next-day__button" type="submit" value=">">
             </form>
-        </div>
 
-        <div class="calendar__items">
-            <form class="calendar__form" action="/calendar" method="get">
-                @csrf
-                <input type="date" class="select-display-date" name=" select_date">
-                <input class="search__button" type="submit" value="検索">
-            </form>
-        </div>
 
+            <div class="calendar__items">
+                <form class="calendar__form" action="/calendar" method="get" onchange="submit(this.form)">
+                    @csrf
+                    <input type="date" class="select-display-date" name="select_date">
+                </form>
+            </div>
+        </div>
         <table class="date-list__table">
             <tr class="date-list__row">
                 <th class="date-list__header">予約者</th>
@@ -102,10 +115,14 @@
                 <td class="date-list__data">{{$item_record->user->name}} 様</td>
                 <td class="date-list__data">{{$item_record->time}}</td>
                 <td class="date-list__data">{{$item_record->number}}</td>
+                <form class="email-index-form" action="/email/index" method="get">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ $item_record->user_id }}">
+                    <td class="transition-email__button"><button class="transition-email__button--submit" type="submit">メールを送付する</button></td>
+                </form>
             </tr>
             @endforeach
         </table>
-
     </div>
 </div>
 @endunless

@@ -1,0 +1,19 @@
+.shop-header-block{
+    display: flex;
+}
+
+.display-date__items{
+    display: flex;
+}
+
+.date-list__header{
+    font-size: 1.5rem;
+}
+
+.date-list__data {
+    font-size: 1.5rem;
+}
+
+.display-date{
+    font-size: 1.3rem;
+}

@@ -11,35 +11,40 @@ use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OwnerEmail;
+use App\Http\Requests\EmailRequest;
+use App\Http\Requests\ShopRegisterRequest;
 
 class OwnerController extends Controller
 {
     public function index()
     {
+        
         $user = Auth::user();
         $user_id = $user->id;
-        $shop = Shop::where('user_id','=',$user_id)->first();
-        $shop_id = $shop->id;
-        $areas = Area::all();
-        $genres = Genre::all();
 
-        //表示する今日の日付を取得
-        $format_date = Carbon::today()->format('Y-m-d');
-
-        //表示されている日付の勤怠レコードを取得
-        $item_records = Reservation::with('user')->where('shop_id','=',$shop_id)->where("date", "=", $format_date)->oldest('time')->get();
 
         $shop=Shop::where("user_id", "=", $user_id)->first();
         
         if(!$shop)
-        {
+        {        
+            $areas = Area::all();
+        $genres = Genre::all();
             return view('owner_page',['user_id' => $user_id, 'areas' => $areas, 'genres' => $genres,'shop'=>$shop]);//初回登録時
         }else{
+
+        $shop_id = $shop->id;
+           //表示する今日の日付を取得
+        $format_date = Carbon::today()->format('Y-m-d');
+        //表示されている日付の勤怠レコードを取得
+        $item_records = Reservation::with('user')->where('shop_id','=',$shop_id)->where("date", "=", $format_date)->oldest('time')->get();
+
             return view('owner_page', ['shop' => $shop, 'display_date' => $format_date,'item_records'=> $item_records]);//登録後
         }
     }
 
-    public function create(Request $request)
+    public function create(ShopRegisterRequest $request)
     {
         $shop_detail = $request->all();
         $area_name = Area::find($shop_detail["area_id"])->name;
@@ -125,7 +130,6 @@ class OwnerController extends Controller
     // 店舗情報更新確認
     public function update_confirm(Request $request)
     {
-
         $user = Auth::user();
         $user_id = $user->id;
         
@@ -149,6 +153,7 @@ class OwnerController extends Controller
         }else{
             $image_path= Shop::where("user_id", "=", $user_id)->first();
             $image_name = '';
+
             return view('edit_shop_confirm', ['after_details' => $after_details, 'area_name'=> $area_name, 'genre_name'=> $genre_name, 'image_name' => $image_name, 'image_path' => $image_path->image]);
         }
     }
@@ -158,31 +163,21 @@ class OwnerController extends Controller
         $update_item = $request->only(['name', 'area_id', 'genre_id','overview']);
         $image_name = $request->only('image_name');
 
-        if($request->image !== '/img/noimage.jpg'){
+        if($request->image_name == ''){
+            //画像を変更しない場合は画像以外を更新
+            unset($update_item['_token']);
+            Shop::find($request->id)->update($update_item);
+        }else{
             // 一時保存のtmpから本番の格納場所へ移動
             Storage::move('public/tmp/' . $image_name['image_name'], 'public/' . $image_name['image_name']);
             unset($update_item['_token']);
             Shop::find($request->id)->update($update_item);
             Shop::find($request->id)->update(['image'=>'/storage/'.$image_name['image_name']]);
-        }else{
-            unset($update_item['_token']);
-            Shop::find($request->id)->update($update_item);
         }
 
 
         return redirect('/owner-page')->with('message', '店舗情報を更新しました');
     }
-
-
-
-
-
-
-    
-
-
-
-
 
 
     // カレンダーで日付選択
@@ -195,10 +190,11 @@ class OwnerController extends Controller
         $select_date = $request->all();
 
         //表示されている日付の勤怠レコードを取得
-        $item_records = Reservation::where('shop_id', '=', $shop_id)->where("date", "=", "$select_date[select_date]")->paginate(5);
+        $item_records = Reservation::where('shop_id', '=', $shop_id)->where("date", "=", "$select_date[select_date]")->oldest('time')->get();
 
-        return view('owner_page', ['display_date' => $select_date["select_date"], 'item_records' => $item_records]);
+        return view('owner_page', ['shop' => $shop,'display_date' => $select_date["select_date"], 'item_records' => $item_records]);
     }
+
 
 
     public function before_day(Request $request)
@@ -214,9 +210,9 @@ class OwnerController extends Controller
         $before_day = $before_day_raw->format('Y-m-d');
 
         //表示されている日付の勤怠レコードを取得
-        $item_records = Reservation::where('user_id', '=', $shop_id)->where("date", "=", "$before_day")->paginate(5);
+        $item_records = Reservation::where('shop_id', '=', $shop_id)->where("date", "=", "$before_day")->oldest('time')->get();
 
-        return view('owner_page', ['display_date' => $before_day, 'item_records' => $item_records]);
+        return view('owner_page', ['shop' => $shop, 'display_date' => $before_day, 'item_records' => $item_records]);
     }
 
 
@@ -233,8 +229,78 @@ class OwnerController extends Controller
         $next_day = $next_day_raw->format('Y-m-d');
 
         //表示されている日付の勤怠レコードを取得
-        $item_records = Reservation::where('user_id', '=', $shop_id)->where("date", "=", "$next_day")->paginate(5);
+        $item_records = Reservation::where('shop_id', '=', $shop_id)->where("date", "=", "$next_day")->oldest('time')->get();
 
-        return view('owner_page', ['display_date' => $next_day, 'item_records' => $item_records]);
+        return view('owner_page', ['shop' => $shop, 'display_date' => $next_day, 'item_records' => $item_records]);
+    }
+
+
+
+
+    public function email_index(Request $request)
+    {
+
+        //遷移元URLの取得
+        $prevUrl = $_SERVER['HTTP_REFERER'];
+
+
+        $receiver = $request->session()->get("form_input");
+   
+        if($receiver){//確認画面から内容修正する場合
+            $user = User::find($receiver['user_id']);
+            $receiver = [];
+            $receiver['user_id'] = $user->id;
+            $receiver['name'] = $user->name;
+            $receiver['email'] = $user->email;
+            $request->session()->forget('form_input');
+        }else{
+        $user = User::find($request->user_id);
+        
+        $receiver = [];
+        $receiver['user_id'] = $user->id;
+        $receiver['name'] = $user->name;
+        $receiver['email'] = $user->email;
+        }
+
+        return view('email.email_index', compact('prevUrl','receiver'));
+    }
+
+
+    public function email_confirm(EmailRequest $request)
+    {
+
+        $receiver =$request->all();
+        $request->session()->put("form_input", $receiver);
+        return view('email.email_confirm', compact('receiver'));
+
+    }
+
+        
+
+
+    public function email_send(Request $request)
+    {
+
+        // 戻るボタンをクリックされた場合
+        if ($request->input('back') == 'back') {
+
+            return redirect('/email/index')
+            ->withInput();
+        }
+        //Reply-toのアドレス取得（店舗代表者）
+        $user = Auth::user();
+        $user_email = $user->email;
+        $shop_record= Shop::where("user_id","=",$user->id)->first();
+        $shop_name= $shop_record->name;
+
+        //メールフォームに入力した内容
+        $email = $request->email;
+        $subject = $request->subject;
+        $body = $request->body;
+
+        Mail::to($email)->send(new OwnerEmail($user_email, $shop_name,$subject,$body));
+        $request->session()->forget('form_input');
+        return redirect('/');
+        
     }
 }
