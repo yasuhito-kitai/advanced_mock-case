@@ -115,7 +115,7 @@
                 <td class="date-list__data">{{$item_record->user->name}} 様</td>
                 <td class="date-list__data">{{$item_record->time}}</td>
                 <td class="date-list__data">{{$item_record->number}}</td>
-                <form class="email-index-form" action="/email/index" method="get">
+                <form class="email-index-form" action="/owner-email/index" method="get">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ $item_record->user_id }}">
                     <td class="transition-email__button"><button class="transition-email__button--submit" type="submit">メールを送付する</button></td>

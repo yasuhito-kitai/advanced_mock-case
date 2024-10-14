@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/email_index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/owner_email_index.css') }}">
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
 <h2 class="section-title">利用者へのお知らせメール</h2>
 
 <div class="email__group">
-    <form class="email__form" action="/email/confirm" method="post">
+    <form class="email__form" action="/owner-email/confirm" method="post">
         @csrf
 
 

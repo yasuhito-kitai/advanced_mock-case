@@ -10,26 +10,22 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Address;
 
-class ReminderEmail extends Mailable
+class AdminEmail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $customer_name;
-    public $shop_name;
-    public $reservation_date;
-    public $reservation_time;
-    public $reservation_number;
+    public $body;
+    public $user_email;
+    public $user_name;
     /**
      * Create a new message instance.
      */
-    public function __construct($subject,$customer_name, $shop_name, $reservation_date, $reservation_time, $reservation_number)
+    public function __construct($user_email, $user_name, $subject, $body)
     {
-        $this->subject = '【'.$shop_name .'】ご予約の確認について';
-        $this->customer_name = $customer_name;
-        $this->shop_name = $shop_name;
-        $this->reservation_date = $reservation_date;
-        $this->reservation_time = $reservation_time;
-        $this->reservation_number = $reservation_number;
+        $this->user_email = $user_email;
+        $this->user_name = $user_name;
+        $this->subject = $subject;
+        $this->body = $body;
+
     }
 
     /**
@@ -49,13 +45,9 @@ class ReminderEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            text: 'email.remainder_text',
+            text: 'email.admin_email_text',
             with: [
-                'customer_name' => $this->customer_name,
-                'shop_name' => $this->shop_name,
-                'reservation_date' => $this->reservation_date,
-                'reservation_time' => $this->reservation_time,
-                'reservation_number' => $this->reservation_number,
+                'body' => $this->body,
             ]
         );
     }

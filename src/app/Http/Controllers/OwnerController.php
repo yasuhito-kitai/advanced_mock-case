@@ -237,7 +237,7 @@ class OwnerController extends Controller
 
 
 
-    public function email_index(Request $request)
+    public function owner_email_index(Request $request)
     {
 
         //遷移元URLの取得
@@ -262,29 +262,29 @@ class OwnerController extends Controller
         $receiver['email'] = $user->email;
         }
 
-        return view('email.email_index', compact('prevUrl','receiver'));
+        return view('email.owner_email_index', compact('prevUrl','receiver'));
     }
 
 
-    public function email_confirm(EmailRequest $request)
+    public function owner_email_confirm(EmailRequest $request)
     {
 
         $receiver =$request->all();
         $request->session()->put("form_input", $receiver);
-        return view('email.email_confirm', compact('receiver'));
+        return view('email.owner_email_confirm', compact('receiver'));
 
     }
 
         
 
 
-    public function email_send(Request $request)
+    public function owner_email_send(Request $request)
     {
 
         // 戻るボタンをクリックされた場合
         if ($request->input('back') == 'back') {
 
-            return redirect('/email/index')
+            return redirect('/owner-email/index')
             ->withInput();
         }
         //Reply-toのアドレス取得（店舗代表者）

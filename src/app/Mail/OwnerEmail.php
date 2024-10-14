@@ -38,9 +38,7 @@ class OwnerEmail extends Mailable
     {
         return new Envelope(
 
-            from: new Address('info@example.com', 'Rese'),
-            replyTo: [
-                new Address($this->user_email, $this->shop_name)],
+            from: new Address($this->user_email, $this->shop_name),
             subject:'');
 
     }
@@ -51,7 +49,7 @@ class OwnerEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            text:'email.email_text',
+            text:'email.owner_email_text',
             with: [
                 'body' => $this->body,
             ]

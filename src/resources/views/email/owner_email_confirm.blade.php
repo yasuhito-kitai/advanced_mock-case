@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/email_confirm.css') }}">
+<link rel="stylesheet" href="{{ asset('css/owner_email_confirm.css') }}">
 @stop
 
 @section('content')
-<form class="email-confirm" action="/email/send" method="post">
+<form class="email-confirm" action="/owner-email/send" method="post">
     @csrf
         <input type="hidden" name="user_id" value="{{$receiver['user_id']}}">
         <input type="hidden" name="email" value="{{$receiver['email']}}">

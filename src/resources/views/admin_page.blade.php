@@ -40,6 +40,35 @@
             <input class="auth-form__btn" type="submit" value="登録">
         </form>
     </div>
+</div>
 
 
+<div class="email__group">
+    <h2 class="section-title">利用者へのお知らせメール</h2>
+        <form class="email__form" action="/admin-email/confirm" method="post">
+        @csrf
+        <div class="form-group">
+            <h2>宛先</h2>
+            <p class="address">利用者全員</p>
+        </div>
+
+        <h2>件名</h2>
+        <div class="form-group">
+            <input class="input-subject" type="text" name="subject" value="{{old('subject')}}">
+        </div>
+        @error('subject')
+        {{ $message }}
+        @enderror
+
+        <h2>本文</h2>
+        <div class="form-group">
+            <textarea class="input-body" name="body">{{ old('body') }}</textarea>
+        </div>
+        @error('body')
+        {{ $message }}
+        @enderror
+
+        <input class="confirm-btn" type="submit" value="確認画面へ">
+    </form>
+</div>
 @stop

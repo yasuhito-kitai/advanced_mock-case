@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth','verified']], function () {
 //管理者用ルート
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/admin-page', [AdminController::class, 'index']);
+    Route::post('/admin-email/confirm', [AdminController::class, 'admin_email_confirm']);
+    Route::post('/admin-email/send', [AdminController::class, 'admin_email_send']);
 
 });
 
@@ -53,9 +55,9 @@ Route::group(['middleware' => ['auth', 'can:owner']], function () {
     Route::post('shop/edit/{id}/confirm', [OwnerController::class, 'update_confirm']);
     Route::patch('shop/edit/{id}/update', [OwnerController::class, 'update']);
 
-    Route::get('/email/index', [OwnerController::class, 'email_index']);
-    Route::post('/email/confirm', [OwnerController::class, 'email_confirm']);
-    Route::post('/email/send', [OwnerController::class, 'email_send']);
+    Route::get('/owner-email/index', [OwnerController::class, 'owner_email_index']);
+    Route::post('/owner-email/confirm', [OwnerController::class, 'owner_email_confirm']);
+    Route::post('/owner-email/send', [OwnerController::class, 'owner_email_send']);
 });
 
 //ユーザー登録後にメール認証を促すページに遷移
