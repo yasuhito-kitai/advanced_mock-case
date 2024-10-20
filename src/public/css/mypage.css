@@ -42,11 +42,20 @@
     background-color: #305DFF;
 }
 
+.name-area{
+    display: flex;
+    justify-content: center;
+}
 .user-name{
     font-size: 2rem;
     text-align: center;
 }
 
+.user-status{
+    font-size: 2rem;
+    text-align: center;
+}
 
-
-
+.induction-premium{
+    text-align: center;
+}

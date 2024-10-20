@@ -5,8 +5,11 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+
+
 
 
 Route::get('/', [ShopController::class, 'index']);
@@ -60,6 +63,22 @@ Route::group(['middleware' => ['auth', 'can:owner']], function () {
     Route::post('/owner-email/send', [OwnerController::class, 'owner_email_send']);
 });
 
+//一般用ルート
+Route::group(['middleware' => ['auth', 'can:general']], function () {
+    Route::get('/checkout', function () {
+        return view('payment.checkout');
+    });
+    Route::get('success', function () {
+        return view('payment.checkout_success');
+    })->name('success');
+    Route::get('cancel', function () {
+        return view('payment.checkout_cancel');
+    })->name('cancel');
+    Route::get('/checkout-payment', [StripeController::class,'checkout'])->name('checkout.session'); // Stripeフォームへ遷移する処理
+});
+
+
+
 //ユーザー登録後にメール認証を促すページに遷移
 Route::get('/email/verify', function () {
     return view('auth.verify_email');
@@ -79,3 +98,4 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', '認証メールを再送信しました');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+

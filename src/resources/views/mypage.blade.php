@@ -12,7 +12,17 @@ use Illuminate\Support\Facades\Auth;
 @stop
 
 @section('content')
-<p class="user-name"><?php $user = Auth::user(); ?>{{ $user->name }}さん</p>
+<div class="name-area">
+    <p class="user-name"><?php $user = Auth::user(); ?>{{ $user->name }}さん</p>
+    <p class="user-status">＜{{$member_status}}＞</p>
+</div>
+
+@if($member_status=='一般会員')
+<div class="induction-premium">
+    <a href="/checkout">プレミアム会員になる</a>
+</div>
+@endif
+
 @if(session('message'))
 <div class="todo__alert--success">
     <p>{{ session('message') }}</p>

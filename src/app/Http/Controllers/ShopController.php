@@ -79,21 +79,8 @@ class ShopController extends Controller
         }
 
         return back();
-}
-
-
-    
-
-    // マイページ
-    public function mypage()
-    {
-        $user = Auth::user();
-        $user_id = $user->id;
-        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->get();
-        $favorites = Favorite::where("user_id","=","$user_id")->get();
-
-        return view('mypage',['reservation_details'=> $reservation_details,'user_id' => $user_id,'favorites' => $favorites]);
     }
+
 
     //店舗検索
     public function search_shop(Request $request)
@@ -111,5 +98,29 @@ class ShopController extends Controller
             return view('index', ['areas' => $areas, 'genres' => $genres, 'shops' => $shops]);
         }
     }
+
+    
+
+    // マイページ
+    public function mypage()
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->get();
+        $favorites = Favorite::where("user_id","=","$user_id")->get();
+
+        if($user->role=='general'){
+            if($user->stripe_id){
+                $member_status="プレミアム会員";
+            }else{
+                $member_status = "一般会員";
+            }
+        }else{
+            $member_status="";
+        }
+        return view('mypage',['reservation_details'=> $reservation_details,'user_id' => $user_id,'favorites' => $favorites, 'member_status'=>$member_status]);
+    }
+
+
 }
 
