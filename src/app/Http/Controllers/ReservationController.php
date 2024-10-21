@@ -70,4 +70,11 @@ class ReservationController extends Controller
         Reservation::find($request->id)->delete();
         return redirect('/mypage')->with('message', '予約を取り消しました');
     }
+
+    public function qr(Request $request)
+    {
+        $reservation_id = $request->only('id');
+        
+        return view('qr', ['reservation_id' => $reservation_id]);
+    }
 }

@@ -48,6 +48,13 @@ use Illuminate\Support\Facades\Auth;
                     <p class="reservation-number__text">予約 {{$index+1}}</p>
                 </div>
 
+                <form class="qr-form" action="/qr" method="get">
+                    <div class="qr">
+                        <input type="hidden" name="id" value="{{ $reservation_detail->id }}">
+                        <input class="qr__button" type="submit" value="QRコード表示"></input>
+                    </div>
+                </form>
+
                 <form class="change-form" action="/reserve/change" method="get">
                     <div class="reservation-change">
                         <input type="hidden" name="id" value="{{ $reservation_detail->id }}">

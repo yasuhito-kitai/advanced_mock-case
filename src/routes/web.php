@@ -6,6 +6,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\StripeController;
+use App\Models\Reservation;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -75,6 +76,8 @@ Route::group(['middleware' => ['auth', 'can:general']], function () {
         return view('payment.checkout_cancel');
     })->name('cancel');
     Route::get('/checkout-payment', [StripeController::class,'checkout'])->name('checkout.session'); // Stripeフォームへ遷移する処理
+
+    Route::get('/qr', [ReservationController::class, 'qr']);
 });
 
 
