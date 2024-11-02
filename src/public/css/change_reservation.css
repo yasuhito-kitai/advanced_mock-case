@@ -4,6 +4,11 @@
 
 .reservation-status-block__title {
     width: 50rem;
+    display: flex;
+}
+
+.item-title {
+    margin-right: 1rem;
 }
 
 .reservation-status__unit {

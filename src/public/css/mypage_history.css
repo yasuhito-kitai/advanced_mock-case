@@ -2,16 +2,16 @@
     display: flex;
 }
 
-.reservation-status-block__title{
+.history-block__title {
     width: 50rem;
     display: flex;
 }
 
-.item-title {
+.item-title{
     margin-right: 1rem;
 }
 
-.reservation-status__unit{
+.history__unit {
     background-color: #305DFF;
     width: 35rem;
     margin-right: 10rem;
@@ -19,11 +19,11 @@
     color: white;
 }
 
-.reservation-status__unit__header{
+.history__unit__header {
     display: flex;
 }
 
-.watch-icon{
+.watch-icon {
     height: 2rem;
     width: 2rem;
 
@@ -32,7 +32,7 @@
 .watch-icon__img {
     height: 100%;
     width: 100%;
-    background-color:#305DFF;
+    background-color: #305DFF;
 }
 
 
@@ -47,21 +47,21 @@
     background-color: #305DFF;
 }
 
-.name-area{
+.name-area {
     display: flex;
     justify-content: center;
 }
-.user-name{
+
+.user-name {
     font-size: 2rem;
     text-align: center;
 }
 
-.user-status{
+.user-status {
     font-size: 2rem;
     text-align: center;
 }
 
-.induction-premium{
+.induction-premium {
     text-align: center;
 }
-

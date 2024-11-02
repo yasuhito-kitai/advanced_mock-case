@@ -105,6 +105,7 @@
         </div>
         <table class="date-list__table">
             <tr class="date-list__row">
+                <th class="date-list__header">状態</th>
                 <th class="date-list__header">予約者</th>
                 <th class="date-list__header">時間</th>
                 <th class="date-list__header">人数</th>
@@ -112,14 +113,30 @@
 
             @foreach($item_records as $item_record)
             <tr class="date-list__row">
+                <td class="date-list__data">
+                    @if($item_record->visit_status=='0')
+                    <p>予約中</p>
+                    @else
+                    <p>来店済</p>
+                    @endif
+
+                </td>
                 <td class="date-list__data">{{$item_record->user->name}} 様</td>
                 <td class="date-list__data">{{$item_record->time}}</td>
                 <td class="date-list__data">{{$item_record->number}}</td>
-                <form class="email-index-form" action="/owner-email/index" method="get">
+                <form class="email-index__form" action="/owner-email" method="get">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ $item_record->user_id }}">
                     <td class="transition-email__button"><button class="transition-email__button--submit" type="submit">メールを送付する</button></td>
                 </form>
+
+                @if($item_record->visit_status=='0')
+                <form class="visit-status-form" action="/visit-status" method="get">
+                    @csrf
+                    <input type="hidden" name="reservation_id" value="{{ $item_record->id }}">
+                    <td class="visit-status__button"><button class="visit-status__button--submit" type="submit">来店済にする</button></td>
+                </form>
+                @endif
             </tr>
             @endforeach
         </table>

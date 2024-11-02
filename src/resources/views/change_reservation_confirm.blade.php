@@ -35,9 +35,7 @@
     </div>
     
     <div class="arrow">
-
         <p>></p>
-
     </div>
 
 

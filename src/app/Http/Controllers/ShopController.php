@@ -6,8 +6,10 @@ use App\Models\Genre;
 use App\Models\Shop;
 use App\Models\Favorite;
 use App\Models\Reservation;
+use App\Models\Review;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Requests\ReviewRequest;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -99,14 +101,13 @@ class ShopController extends Controller
         }
     }
 
-    
-
-    // マイページ
+    // マイページ１（予約状況）
     public function mypage()
     {
         $user = Auth::user();
         $user_id = $user->id;
-        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->get();
+        $today = Carbon::today()->format('Y-m-d');
+        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->where("date",">=","$today")->where("visit_status","=","0")->oldest('date')->oldest('time')->get();
         $favorites = Favorite::where("user_id","=","$user_id")->get();
 
         if($user->role=='general'){
@@ -121,6 +122,55 @@ class ShopController extends Controller
         return view('mypage',['reservation_details'=> $reservation_details,'user_id' => $user_id,'favorites' => $favorites, 'member_status'=>$member_status]);
     }
 
+    // マイページ２（予約履歴）
+    public function history()
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $today = Carbon::today()->format('Y-m-d');
+        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->where("date","<","$today")->oldest('date')->oldest('time')->get();
+        $favorites = Favorite::where("user_id", "=", "$user_id")->get();
 
+        if ($user->role == 'general') {
+            if ($user->stripe_id) {
+                $member_status = "プレミアム会員";
+            } else {
+                $member_status = "一般会員";
+            }
+        } else {
+            $member_status = "";
+        }
+        return view('mypage_history', ['reservation_details' => $reservation_details, 'user_id' => $user_id, 'favorites' => $favorites, 'member_status' => $member_status]);
+    }
+
+//レビュー作成
+    public function review_make(Request $request)
+    {
+        $reservation_record = Reservation::find($request->id);
+
+        return view('review_make', compact('reservation_record'));
+        
+    }
+
+    //レビュー確認
+    public function review_confirm(ReviewRequest $request)
+    {
+        $review_content = $request->only(['shop_id','reservation_id','shop_name','star','comment']);
+        return view('review_confirm', compact('review_content'));
+    }
+
+    //レビュー投稿
+    public function review_send(Request $request)
+    {
+        // 戻るボタンをクリックされた場合
+        if ($request->input('back') == 'back') {
+
+        return redirect('/mypage/review/make')
+        ->withInput();
+        }
+
+        $review_confirm = $request->only(['shop_id', 'reservation_id', 'star', 'comment']);
+        Review::create($review_confirm);
+        return redirect ('/mypage');
+    }
 }
-

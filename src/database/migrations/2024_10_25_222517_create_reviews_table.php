@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservations', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('shop_id')->constrained()->cascadeOnDelete();
-            $table->date('date');
-            $table->string('time',10);
-            $table->string('number',10);
-            $table->string('visit_status',10)->comment('来店状態 0:未 1:済');
+            $table->foreignId('reservation_id')->constrained()->cascadeOnDelete();
+            $table->integer('star')->default(0);
+            $table->text('comment');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reservations');
+        Schema::dropIfExists('reviews');
     }
 };

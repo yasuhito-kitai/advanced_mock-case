@@ -29,7 +29,7 @@ class OwnerController extends Controller
         
         if(!$shop)
         {        
-            $areas = Area::all();
+        $areas = Area::all();
         $genres = Genre::all();
             return view('owner_page',['user_id' => $user_id, 'areas' => $areas, 'genres' => $genres,'shop'=>$shop]);//初回登録時
         }else{
@@ -37,7 +37,7 @@ class OwnerController extends Controller
         $shop_id = $shop->id;
            //表示する今日の日付を取得
         $format_date = Carbon::today()->format('Y-m-d');
-        //表示されている日付の勤怠レコードを取得
+        //表示されている日付のレコードを取得
         $item_records = Reservation::with('user')->where('shop_id','=',$shop_id)->where("date", "=", $format_date)->oldest('time')->get();
 
             return view('owner_page', ['shop' => $shop, 'display_date' => $format_date,'item_records'=> $item_records]);//登録後
@@ -228,7 +228,7 @@ class OwnerController extends Controller
         $next_day_raw = $display_date_carbon->addDay();
         $next_day = $next_day_raw->format('Y-m-d');
 
-        //表示されている日付の勤怠レコードを取得
+        //表示されている日付のレコードを取得
         $item_records = Reservation::where('shop_id', '=', $shop_id)->where("date", "=", "$next_day")->oldest('time')->get();
 
         return view('owner_page', ['shop' => $shop, 'display_date' => $next_day, 'item_records' => $item_records]);
@@ -237,7 +237,7 @@ class OwnerController extends Controller
 
 
 
-    public function owner_email_index(Request $request)
+    public function owner_email(Request $request)
     {
 
         //遷移元URLの取得
@@ -262,7 +262,7 @@ class OwnerController extends Controller
         $receiver['email'] = $user->email;
         }
 
-        return view('email.owner_email_index', compact('prevUrl','receiver'));
+        return view('email.owner_email', compact('prevUrl','receiver'));
     }
 
 
@@ -284,7 +284,7 @@ class OwnerController extends Controller
         // 戻るボタンをクリックされた場合
         if ($request->input('back') == 'back') {
 
-            return redirect('/owner-email/index')
+            return redirect('/owner-email')
             ->withInput();
         }
         //Reply-toのアドレス取得（店舗代表者）
@@ -303,4 +303,22 @@ class OwnerController extends Controller
         return redirect('/');
         
     }
+
+    public function visit_status(Request $request)
+    {
+        //遷移元URLの取得
+        $prevUrl = $_SERVER['HTTP_REFERER'];
+
+        $reservation_record = Reservation::find($request->reservation_id);
+
+        return view('visit_status_change', compact('prevUrl', 'reservation_record'));
+    }
+
+    public function visit_status_update(Request $request) {
+    
+        Reservation::find($request->reservation_id)->update(['visit_status'=>1]);
+        $prevUrl=$request->prevUrl;
+        return redirect($prevUrl);
+    }
+
 }

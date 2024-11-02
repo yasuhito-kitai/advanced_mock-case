@@ -10,7 +10,7 @@
 @else
 <a class="detail-block__back-button--button" href="{{ url()->previous() }}">＜</a>
 @endif
-<h2 class="section-title">利用者へのお知らせメール</h2>
+<h2 class="section-title">予約者へのお知らせメール</h2>
 
 <div class="email__group">
     <form class="email__form" action="/owner-email/confirm" method="post">

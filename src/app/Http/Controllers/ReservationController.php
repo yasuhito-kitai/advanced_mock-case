@@ -22,7 +22,8 @@ class ReservationController extends Controller
             'shop_id' => $reservation_details['shop_id'],
             'date' =>$reservation_details['date'],
             'time' => $reservation_details['time'],
-            'number' => $reservation_details['number']
+            'number' => $reservation_details['number'],
+            'visit_status' =>0 // 来店状態 未：０ 済：１
         ]);
         // 予約完了後は完了お知らせページへ遷移
         return view('done');
@@ -40,10 +41,20 @@ class ReservationController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
         $today = Carbon::now()->format('Y-m-d');
-        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->get();
+        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->where("date", ">=", "$today")->oldest('date')->oldest('time')->get();
         $favorites = Favorite::where("user_id", "=", "$user_id")->get();
 
-        return view('change_reservation', ['reservation_details' => $reservation_details, 'user_id' => $user_id, 'today' => $today, 'favorites' => $favorites]);
+
+        if ($user->role == 'general') {
+            if ($user->stripe_id) {
+                $member_status = "プレミアム会員";
+            } else {
+                $member_status = "一般会員";
+            }
+        } else {
+            $member_status = "";
+        }
+        return view('change_reservation', ['reservation_details' => $reservation_details, 'user_id' => $user_id, 'today' => $today, 'favorites' =>$favorites, 'member_status' => $member_status]);
     }
 
     // 変更内容確認

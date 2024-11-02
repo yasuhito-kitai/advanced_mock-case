@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
+<link rel="stylesheet" href="{{ asset('css/mypage_history.css') }}">
 @stop
 
 @section('content')
@@ -29,47 +29,33 @@ use Illuminate\Support\Facades\Auth;
 @endif
 <div class="whole-container">
 
-    <!-- 予約状況ブロック -->
-    <div class="reservation-status-block">
-        <div class="reservation-status-block__title">
+    <!-- 予約履歴ブロック -->
+    <div class="history-block">
+
+        <div class="history-block__title">
             <h1 class="item-title"><a href="/mypage">予約状況</a></h1>
             <h1 class="item-title"><a href="/mypage/history">予約履歴</a></h1>
         </div>
 
         @foreach($reservation_details as $index=>$reservation_detail)
-        <div class="reservation-status__unit">
+        <div class="history__unit">
 
-            <div class="reservation-status__unit__header">
+            <div class="history__unit__header">
                 <div class="watch-icon">
-                    <img class="watch-icon__img" src="img/時計のアイコン.png">
+                    <img class="watch-icon__img" src="{{asset('img/時間経過のアイコン.png')}}">
                 </div>
 
                 <div class="reservation-number">
-                    <p class="reservation-number__text">予約 {{$index+1}}</p>
+                    <p class="reservation-number__text">履歴 {{$index+1}}</p>
                 </div>
-
-                <form class="qr-form" action="/qr" method="get">
-                    <div class="qr">
+                @if($reservation_detail->visit_status=="1")
+                <form class="review-form" action="/mypage/review/make" method="get">
+                    <div class="make_review">
                         <input type="hidden" name="id" value="{{ $reservation_detail->id }}">
-                        <input class="qr__button" type="submit" value="QRコード表示"></input>
+                        <input class="make_review__button" type="submit" value="レビューを書く"></input>
                     </div>
                 </form>
-
-                <form class="change-form" action="/reserve/change" method="get">
-                    <div class="reservation-change">
-                        <input type="hidden" name="id" value="{{ $reservation_detail->id }}">
-                        <input class="reservation-change__button" type="submit" value="予約内容の変更"></input>
-                    </div>
-                </form>
-
-                <form class="cancel-form" action="/reserve/cancel" method="post">
-                    @method('DELETE')
-                    @csrf
-                    <div class="cancel-icon">
-                        <input type="hidden" name="id" value="{{ $reservation_detail->id }}">
-                        <input class="cancel-icon__img" type="image" src="img/キャンセルのアイコン.png" alt="予約キャンセル" onclick="return confirm('予約{{$index+1}}を取り消しますか？')">
-                    </div>
-                </form>
+                @endif
             </div>
 
             <table class="reservation-details">
@@ -88,6 +74,14 @@ use Illuminate\Support\Facades\Auth;
                 <tr class="reservation-item__row">
                     <th class="reservation-item__header">Number</th>
                     <td class="reservation-item__data">{{$reservation_detail->number}}</td>
+                </tr>
+                <tr class="reservation-item__row">
+                    <th class="reservation-item__header">Status</th>
+                    @if($reservation_detail->visit_status=="1")
+                    <td class="reservation-item__data">来店済</td>
+                    @else
+                    <td class="reservation-item__data">キャンセル済</td>
+                    @endif
                 </tr>
             </table>
         </div>

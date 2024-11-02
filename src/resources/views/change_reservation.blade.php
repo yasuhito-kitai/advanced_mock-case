@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/common.css') }}">
 <link rel="stylesheet" href="{{ asset('css/change_reservation.css') }}">
 @stop
 
@@ -18,13 +17,20 @@ use Illuminate\Support\Facades\Auth;
     <p>{{ session('message') }}</p>
 </div>
 
+@if($member_status=='一般会員')
+<div class="induction-premium">
+    <a href="/checkout">プレミアム会員になる</a>
+</div>
+@endif
+
 @endif
 <div class="whole-container">
 
     <!-- 予約状況ブロック -->
     <div class="reservation-status-block">
         <div class="reservation-status-block__title">
-            <h1 class="reservation-status__title-text">予約状況</h1>
+            <h1 class="item-title"><a href="/mypage">予約状況</a></h1>
+            <h1 class="item-title"><a href="/mypage/history">予約履歴</a></h1>
         </div>
 
         @foreach($reservation_details as $index=>$reservation_detail)

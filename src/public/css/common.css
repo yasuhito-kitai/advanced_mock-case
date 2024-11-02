@@ -13,6 +13,9 @@ html {
 .logo {
     font-size: 2.4rem;
     margin-top: 0.2rem;
+    font-weight: bolder;
+    color: #305DFF;
+    font-family: Microsoft Sans Serif;
 }
 
 .nav__list{
@@ -25,14 +28,17 @@ html {
 
 .drawer__open {
     display: flex;
-    height: 6rem;
-    width: 6rem;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 0.5rem;
     justify-content: center;
     align-items: center;
     position: relative;
     z-index: 100;
     /* 重なり順を一番上にする */
     cursor: pointer;
+    background-color: #305DFF;
+    box-shadow: 0.2rem 0.2rem 0.5rem gray;
 }
 
 .drawer__open span,
@@ -40,8 +46,7 @@ html {
 .drawer__open span:after {
     content: '';
     display: block;
-    height: 0.3rem;
-    width: 2.5rem;
+    height: 0.1rem;
     border-radius: 0.3rem;
     background: #333;
     transition: 0.5s;
@@ -51,11 +56,20 @@ html {
 /* 三本線の一番上の棒の位置調整 */
 .drawer__open span:before {
     bottom: 0.8rem;
+    width: 1.2rem;
+    background-color: #fff;
+}
+
+.drawer__open span {
+    width: 2.2rem;
+    background-color: #fff;
 }
 
 /* 三本線の一番下の棒の位置調整 */
 .drawer__open span:after {
     top: 0.8rem;
+    width: 0.7rem;
+    background-color: #fff;
 }
 
 /* アイコンがクリックされたら真ん中の線を透明にする */
@@ -66,12 +80,16 @@ html {
 /* アイコンがクリックされたらアイコンが×印になように上下の線を回転 */
 #drawer__input:checked~.drawer__open span::before {
     bottom: 0;
+    left: 0.1rem;
     transform: rotate(45deg);
+    width: 2rem;
 }
 
 #drawer__input:checked~.drawer__open span::after {
     top: 0;
+    left:0.1rem;
     transform: rotate(-45deg);
+    width: 2rem;
 }
 
 /* メニューのデザイン*/

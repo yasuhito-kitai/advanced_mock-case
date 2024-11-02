@@ -25,6 +25,10 @@ class Shop extends Model
         return $this->belongsTo(Genre::class);
     }
 
+    public function review()
+    {
+        return $this->hasMany(Review::class);
+    }
 
     public function scopeAreaSearch($query, $area_id)
     {

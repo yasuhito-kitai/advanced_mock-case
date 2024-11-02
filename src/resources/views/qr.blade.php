@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <a class="detail-block__back-button--button" href="/mypage">＜</a>
     {!! QrCode::generate( $reservation_id['id'] ); !!}
 </body>
 

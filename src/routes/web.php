@@ -6,7 +6,6 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\StripeController;
-use App\Models\Reservation;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -16,13 +15,18 @@ use Illuminate\Http\Request;
 Route::get('/', [ShopController::class, 'index']);
 Route::get('/detail/{id}', [ShopController::class, 'detail']);
 
+Route::get('/detail/{id}/review/index', [ShopController::class, 'review_index']);
+
 Route::get('/search_shop',[ShopController::class, 'search_shop']);
+
+
 
 Route::post('/done', [ReservationController::class, 'done']);
 
 
 Route::group(['middleware' => ['auth','verified']], function () {
     Route::get('/mypage', [ShopController::class, 'mypage']);
+    Route::get('/mypage/history', [ShopController::class, 'history']);
     Route::get('/mypage/detail/{id}', [ShopController::class, 'detail']);
     Route::post('/favorite/{id}', [ShopController::class, 'favorite']);
     Route::get('/thanks', [ShopController::class, 'thanks']);
@@ -32,8 +36,6 @@ Route::group(['middleware' => ['auth','verified']], function () {
     Route::post('/reserve/change/confirm', [ReservationController::class, 'change_confirm']);
     Route::patch('/reserve/change/update', [ReservationController::class, 'update']);
     Route::delete('/reserve/cancel', [ReservationController::class, 'destroy']);
-
-    
 });
 
 //管理者用ルート
@@ -59,9 +61,12 @@ Route::group(['middleware' => ['auth', 'can:owner']], function () {
     Route::post('shop/edit/{id}/confirm', [OwnerController::class, 'update_confirm']);
     Route::patch('shop/edit/{id}/update', [OwnerController::class, 'update']);
 
-    Route::get('/owner-email/index', [OwnerController::class, 'owner_email_index']);
+    Route::get('/owner-email', [OwnerController::class, 'owner_email']);
     Route::post('/owner-email/confirm', [OwnerController::class, 'owner_email_confirm']);
     Route::post('/owner-email/send', [OwnerController::class, 'owner_email_send']);
+
+    Route::get('/visit-status', [OwnerController::class, 'visit_status']);
+    Route::patch('/visit-status/done', [OwnerController::class, 'visit_status_update']);
 });
 
 //一般用ルート
@@ -78,6 +83,10 @@ Route::group(['middleware' => ['auth', 'can:general']], function () {
     Route::get('/checkout-payment', [StripeController::class,'checkout'])->name('checkout.session'); // Stripeフォームへ遷移する処理
 
     Route::get('/qr', [ReservationController::class, 'qr']);
+
+    Route::get('/mypage/review/make', [ShopController::class, 'review_make']);
+    Route::post('/mypage/review/confirm', [ShopController::class, 'review_confirm']);
+    Route::post('/mypage/review/send', [ShopController::class, 'review_send']);
 });
 
 
