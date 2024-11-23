@@ -12,44 +12,46 @@
 
 <body>
     <header class="header">
-        <div class="nav">
-            <input id="drawer__input" class="drawer__hidden" type="checkbox">
-            <label for="drawer__input" class="drawer__open"><span></span></label>
-            <nav class="nav__content">
-                <ul class="nav__list">
-                    <!-- ログアウト中のメニュー表示 -->
-                    @guest
-                    <li class="nav__item"><a href="/">Home</a></li>
-                    <li class="nav__item"><a href="/register">Registration</a></li>
-                    <li class="nav__item"><a href="/login">Login</a></li>
-                    @endguest
+        
+            <div class="nav">
+                <input id="drawer__input" class="drawer__hidden" type="checkbox">
+                <label for="drawer__input" class="drawer__open"><span></span></label>
+                <nav class="nav__content">
+                    <ul class="nav__list">
+                        <!-- ログアウト中のメニュー表示 -->
+                        @guest
+                        <li class="nav__item"><a class="nav__item__text" href="/">Home</a></li>
+                        <li class="nav__item"><a class="nav__item__text" href="/register">Registration</a></li>
+                        <li class="nav__item"><a class="nav__item__text" href="/login">Login</a></li>
+                        @endguest
 
-                    <!-- ログイン中のメニュー表示 -->
-                    @auth
-                    <li class="nav__item"><a href="/">Home</a></li>
-                    <li class="nav__item">
-                        <form action="/logout" method="post">
-                            @csrf
-                            <input class="logout" type="submit" value="Logout">
-                        </form>
-                    </li>
-                    <li class="nav__item"><a href="/mypage">Mypage</a></li>
+                        <!-- ログイン中のメニュー表示 -->
+                        @auth
+                        <li class="nav__item"><a class="nav__item__text" href="/">Home</a></li>
+                        <li class="nav__item">
+                            <form action="/logout" method="post">
+                                @csrf
+                                <input class="logout" type="submit" value="Logout">
+                            </form>
+                        </li>
+                        <li class="nav__item"><a class="nav__item__text" href="/mypage">Mypage</a></li>
 
-                    @can('admin')<!-- 管理者のみ表示 -->
-                    <li class="nav__item"><a href="/admin-page">Admin-page</a></li>
-                    @endcan
+                        @can('admin')<!-- 管理者のみ表示 -->
+                        <li class="nav__item"><a class="nav__item__text" href="/admin-page">Admin-page</a></li>
+                        @endcan
 
-                    @can('owner')<!-- 店舗代表者のみ表示 -->
-                    <li class="nav__item"><a href="/owner-page">Owner-page</a></li>
-                    @endcan
-                    @endauth
-                </ul>
-            </nav>
-        </div>
+                        @can('owner')<!-- 店舗代表者のみ表示 -->
+                        <li class="nav__item"><a class="nav__item__text" href="/owner-page">Owner-page</a></li>
+                        @endcan
+                        @endauth
+                    </ul>
+                </nav>
 
-        <div class="logo">Rese</div>
 
-        @yield('header')
+                <div class="logo">Rese</div>
+            </div>
+            @yield('header')
+        
     </header>
 
     <main>

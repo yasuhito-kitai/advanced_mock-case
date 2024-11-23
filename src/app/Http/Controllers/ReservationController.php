@@ -41,7 +41,7 @@ class ReservationController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
         $today = Carbon::now()->format('Y-m-d');
-        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->where("date", ">=", "$today")->oldest('date')->oldest('time')->get();
+        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->where("date", ">=", "$today")->where("visit_status", "=", "0")->oldest('date')->oldest('time')->get();
         $favorites = Favorite::where("user_id", "=", "$user_id")->get();
 
 

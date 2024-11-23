@@ -128,7 +128,7 @@ class ShopController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
         $today = Carbon::today()->format('Y-m-d');
-        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->where("date","<","$today")->oldest('date')->oldest('time')->get();
+        $reservation_details = Reservation::with('shop')->where("user_id", "=", "$user_id")->where("date","<","$today")->where("visit_status","=", "1")->latest('date')->latest('time')->get();
         $favorites = Favorite::where("user_id", "=", "$user_id")->get();
 
         if ($user->role == 'general') {
@@ -143,12 +143,52 @@ class ShopController extends Controller
         return view('mypage_history', ['reservation_details' => $reservation_details, 'user_id' => $user_id, 'favorites' => $favorites, 'member_status' => $member_status]);
     }
 
+    // マイページ３（お気に入り）
+    public function favorite_tab()
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $favorites = Favorite::where("user_id", "=", "$user_id")->get();
+
+        if ($user->role == 'general') {
+            if ($user->stripe_id) {
+                $member_status = "プレミアム会員";
+            } else {
+                $member_status = "一般会員";
+            }
+        } else {
+            $member_status = "";
+        }
+        return view('mypage_favorite', ['user_id' => $user_id, 'favorites' => $favorites, 'member_status' => $member_status]);
+    }
+
+
 //レビュー作成
     public function review_make(Request $request)
     {
-        $reservation_record = Reservation::find($request->id);
+        //遷移元URLの取得
+        $prevUrl = $_SERVER['HTTP_REFERER'];
 
-        return view('review_make', compact('reservation_record'));
+        $review_content = $request->session()->get("form_input");
+
+        if ($review_content) { //確認画面から内容修正する場合
+            $reservation_items = Reservation::find($review_content['reservation_id']);
+            $reservation_record = [];
+            $reservation_record['id'] = $reservation_items->id;
+            $reservation_record['shop_name'] = $reservation_items->shop->name;
+            $reservation_record['shop_id'] = $reservation_items->shop_id;
+            $request->session()->forget('form_input');
+        } else {
+            $reservation_items = Reservation::find($request->id);
+
+            $reservation_record = [];
+            $reservation_record['id'] = $reservation_items->id;
+            $reservation_record['shop_name'] = $reservation_items->shop->name;
+            $reservation_record['shop_id'] = $reservation_items->shop_id;
+        }
+
+
+        return view('review_make', compact('reservation_record','prevUrl'));
         
     }
 
@@ -156,6 +196,7 @@ class ShopController extends Controller
     public function review_confirm(ReviewRequest $request)
     {
         $review_content = $request->only(['shop_id','reservation_id','shop_name','star','comment']);
+        $request->session()->put("form_input", $review_content);
         return view('review_confirm', compact('review_content'));
     }
 

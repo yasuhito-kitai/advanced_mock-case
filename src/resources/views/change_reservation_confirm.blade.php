@@ -5,77 +5,85 @@
 @stop
 
 @section('content')
-<div class="back">
-    <a class="back__button" href="{{ url()->previous() }}">戻る</a>
-</div>
+
 <div class="whole-container">
     <!--変更前 -->
-    <div class="before-card">
-        <p>現在の予約内容</p>
-        <div class="before-card__item">
-            <table class="before-details">
+    <div class="reservation-status__unit">
+        <div class="unit-title">
+            <p class="unit-title__text">現在の予約内容</p>
+        </div>
+
+        <div class="unit__item">
+            <table class="reservation-details">
                 <tr class="before-item__row">
-                    <th class="before-item__header">Shop</th>
-                    <td class="before-item__data">{{$before_details['name']}}</td>
+                    <th class="reservation-item__header">Shop</th>
+                    <td class="reservation-item__data">{{$before_details['name']}}</td>
                 </tr>
                 <tr class="before-item__row">
-                    <th class="before-item__header">Date</th>
-                    <td class="before-item__data">{{$before_details['before_date']}}</td>
+                    <th class="reservation-item__header">Date</th>
+                    <td class="reservation-item__data">{{$before_details['before_date']}}</td>
                 </tr>
                 <tr class="before-item__row">
-                    <th class="before-item__header">Time</th>
-                    <td class="before-item__data">{{$before_details['before_time']}}</td>
+                    <th class="reservation-item__header">Time</th>
+                    <td class="reservation-item__data">{{$before_details['before_time']}}</td>
                 </tr>
                 <tr class="before-item__row">
-                    <th class="before-item__header">Number</th>
-                    <td class="before-item__data">{{$before_details['before_number']}}</td>
+                    <th class="reservation-item__header">Number</th>
+                    <td class="reservation-item__data">{{$before_details['before_number']}}</td>
                 </tr>
             </table>
         </div>
     </div>
-    
-    <div class="arrow">
-        <p>></p>
+
+    <div class="arrow-icon">
+        <img class="arrow-icon__img--right" src="{{asset('img/右矢印アイコン.png')}}">
+        <img class="arrow-icon__img--bottom" src="{{asset('img/下矢印アイコン.png')}}">
     </div>
 
 
-
     <!--変更後 -->
-    <form class="change-form" action="/reserve/change/update" method="post">
-        @csrf
-        @method('PATCH')
-        <div class="after-card">
-            <p>変更後の予約内容</p>
-            <div class="after-card__item">
-                <table class="after-details">
+    <div class="reservation-status__unit">
+        <form class="change-form" action="/reserve/change/update" method="post">
+            @csrf
+            @method('PATCH')
+            <div class="unit-title">
+                <p class="unit-title__text">変更後の予約内容</p>
+            </div>
+
+            <div class="unit__item">
+                <table class="reservation-details">
                     <tr class="after-item__row">
-                        <th class="after-item__header">Shop</th>
+                        <th class="reservation-item__header">Shop</th>
                         <input type="hidden" name="id" value="{{ $after_details['id'] }}">
-                        <td class="after-item__data">{{$after_details['name']}}</td>
+                        <td class="reservation-item__data">{{$after_details['name']}}</td>
                     </tr>
                     <tr class="after-item__row">
-                        <th class="after-item__header">Date</th>
+                        <th class="reservation-item__header">Date</th>
                         <input type="hidden" name="date" value="{{$after_details['after_date']}}">
-                        <td class="after-item__data">{{$after_details['after_date']}}</td>
+                        <td class="reservation-item__data">{{$after_details['after_date']}}</td>
                     </tr>
                     <tr class="after-item__row">
-                        <th class="after-item__header">Time</th>
+                        <th class="reservation-item__header">Time</th>
                         <input type="hidden" name="time" value="{{$after_details['after_time']}}">
-                        <td class="after-item__data">{{$after_details['after_time']}}</td>
+                        <td class="reservation-item__data">{{$after_details['after_time']}}</td>
                     </tr>
                     <tr class="after-item__row">
-                        <th class="after-item__header">Number</th>
+                        <th class="reservation-item__header">Number</th>
                         <input type="hidden" name="number" value="{{$after_details['after_number']}}">
-                        <td class="after-item__data">{{$after_details['after_number']}}</td>
+                        <td class="reservation-item__data">{{$after_details['after_number']}}</td>
                     </tr>
                 </table>
             </div>
 
-            <div class="change-submit">
-                <button class="change-submit__button" type="submit" class="">予約を変更する</button>
-            </div>
-        </div>
-    </form>
+            <div class="button-flex">
+                <div class="back">
+                    <a class="back__button" href="{{ url()->previous() }}">戻る</a>
+                </div>
 
+                <div class="change-submit">
+                    <button class="change-submit__button" type="submit" class="">この内容に変更する</button>
+                </div>
+        </form>
+    </div>
 </div>
 @stop

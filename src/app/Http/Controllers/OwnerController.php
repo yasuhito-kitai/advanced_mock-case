@@ -37,10 +37,12 @@ class OwnerController extends Controller
         $shop_id = $shop->id;
            //表示する今日の日付を取得
         $format_date = Carbon::today()->format('Y-m-d');
+        //今日の日付の共通変数を定義
+            $today = Carbon::today()->format('Y-m-d');
         //表示されている日付のレコードを取得
         $item_records = Reservation::with('user')->where('shop_id','=',$shop_id)->where("date", "=", $format_date)->oldest('time')->get();
 
-            return view('owner_page', ['shop' => $shop, 'display_date' => $format_date,'item_records'=> $item_records]);//登録後
+            return view('owner_page', ['shop' => $shop, 'display_date' => $format_date, 'today'=> $today,'item_records'=> $item_records]);//登録後
         }
     }
 
@@ -191,8 +193,10 @@ class OwnerController extends Controller
 
         //表示されている日付の勤怠レコードを取得
         $item_records = Reservation::where('shop_id', '=', $shop_id)->where("date", "=", "$select_date[select_date]")->oldest('time')->get();
+        //今日の日付の共通変数を定義
+        $today = Carbon::today()->format('Y-m-d');
 
-        return view('owner_page', ['shop' => $shop,'display_date' => $select_date["select_date"], 'item_records' => $item_records]);
+        return view('owner_page', ['shop' => $shop,'display_date' => $select_date["select_date"], 'today' => $today, 'item_records' => $item_records]);
     }
 
 
@@ -208,11 +212,13 @@ class OwnerController extends Controller
         $display_date_carbon = Carbon::parse($display_date_string["display_date"]);
         $before_day_raw = $display_date_carbon->subDay();
         $before_day = $before_day_raw->format('Y-m-d');
+        //今日の日付の共通変数を定義
+        $today = Carbon::today()->format('Y-m-d');
 
         //表示されている日付の勤怠レコードを取得
         $item_records = Reservation::where('shop_id', '=', $shop_id)->where("date", "=", "$before_day")->oldest('time')->get();
 
-        return view('owner_page', ['shop' => $shop, 'display_date' => $before_day, 'item_records' => $item_records]);
+        return view('owner_page', ['shop' => $shop, 'display_date' => $before_day, 'today' => $today, 'item_records' => $item_records]);
     }
 
 
@@ -230,8 +236,10 @@ class OwnerController extends Controller
 
         //表示されている日付のレコードを取得
         $item_records = Reservation::where('shop_id', '=', $shop_id)->where("date", "=", "$next_day")->oldest('time')->get();
+        //今日の日付の共通変数を定義
+        $today = Carbon::today()->format('Y-m-d');
 
-        return view('owner_page', ['shop' => $shop, 'display_date' => $next_day, 'item_records' => $item_records]);
+        return view('owner_page', ['shop' => $shop, 'display_date' => $next_day, 'today' => $today, 'item_records' => $item_records]);
     }
 
 
