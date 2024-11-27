@@ -10,27 +10,17 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
 
-
-
 Route::get('/', [ShopController::class, 'index']);
 Route::get('/detail/{id}', [ShopController::class, 'detail']);
-
-Route::get('/detail/{id}/review/index', [ShopController::class, 'review_index']);
-
 Route::get('/search_shop',[ShopController::class, 'search_shop']);
 
-
-
-Route::post('/done', [ReservationController::class, 'done']);
-
-
+//ユーザー登録、メール認証完了のユーザー用
 Route::group(['middleware' => ['auth','verified']], function () {
     Route::get('/mypage', [ShopController::class, 'mypage']);
     Route::get('/mypage/history', [ShopController::class, 'history']);
-    Route::get('/mypage/detail/{id}', [ShopController::class, 'detail']);
     Route::post('/favorite/{id}', [ShopController::class, 'favorite']);
     Route::get('/thanks', [ShopController::class, 'thanks']);
-    
+
     Route::post('/reserve', [ReservationController::class, 'reserve']);
     Route::get('/reserve/change', [ReservationController::class, 'change']);
     Route::post('/reserve/change/confirm', [ReservationController::class, 'change_confirm']);
@@ -43,7 +33,6 @@ Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/admin-page', [AdminController::class, 'index']);
     Route::post('/admin-email/confirm', [AdminController::class, 'admin_email_confirm']);
     Route::post('/admin-email/send', [AdminController::class, 'admin_email_send']);
-
 });
 
 //店舗代表者用ルート
@@ -54,12 +43,10 @@ Route::group(['middleware' => ['auth', 'can:owner']], function () {
     Route::get('/next_day', [OwnerController::class, 'next_day']);
     Route::get('/calendar', [OwnerController::class, 'calendar']);
 
-    Route::get('/myshop/detail/{id}', [ShopController::class, 'detail']);
-    Route::post('shop/register/confirm',[OwnerController::class,'create']);
-    Route::post('shop/register/done', [OwnerController::class, 'store']);
-    Route::get('shop/edit/{id}', [OwnerController::class, 'edit']);
-    Route::post('shop/edit/{id}/confirm', [OwnerController::class, 'update_confirm']);
-    Route::patch('shop/edit/{id}/update', [OwnerController::class, 'update']);
+    Route::post('/shop/register/confirm',[OwnerController::class,'create']);
+    Route::post('/shop/register/done', [OwnerController::class, 'store']);
+    Route::post('/shop/edit/{id}/confirm', [OwnerController::class, 'update_confirm']);
+    Route::patch('/shop/edit/{id}/update', [OwnerController::class, 'update']);
 
     Route::get('/owner-email', [OwnerController::class, 'owner_email']);
     Route::post('/owner-email/confirm', [OwnerController::class, 'owner_email_confirm']);
@@ -71,15 +58,9 @@ Route::group(['middleware' => ['auth', 'can:owner']], function () {
 
 //一般用ルート
 Route::group(['middleware' => ['auth', 'can:general']], function () {
-    Route::get('/checkout', function () {
-        return view('payment.checkout');
-    });
-    Route::get('success', function () {
-        return view('payment.checkout_success');
-    })->name('success');
-    Route::get('cancel', function () {
-        return view('payment.checkout_cancel');
-    })->name('cancel');
+    Route::get('/checkout', function () {return view('payment.checkout');});
+    Route::get('success', function () {return view('payment.checkout_success');})->name('success');
+    Route::get('cancel', function () {return view('payment.checkout_cancel');})->name('cancel');
     Route::get('/checkout-payment', [StripeController::class,'checkout'])->name('checkout.session'); // Stripeフォームへ遷移する処理
 
     Route::get('/qr', [ReservationController::class, 'qr']);

@@ -130,7 +130,7 @@ use Illuminate\Support\Facades\Auth;
                             </div>
                             <div class="detail-favorite__flex">
                                 <div class="shop-card__content__detail">
-                                    <form class="shop-card__content__detail-form" action="/mypage/detail/{{$favorite->shop->id}}" method="get">
+                                    <form class="shop-card__content__detail-form" action="/detail/{{$favorite->shop->id}}" method="get">
                                         @csrf
                                         <input class="shop-card__content__detail-btn" type="submit" value="詳しくみる">
                                     </form>

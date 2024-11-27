@@ -4,6 +4,7 @@
 /public/hot
 /storage/*.key
 /vendor
+!/vendor/laravel/fortify
 .env
 .env.backup
 .env.production

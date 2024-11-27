@@ -29,11 +29,7 @@ class ReservationController extends Controller
         return view('done');
     }
 
-    // 予約完了
-    public function done()
-    {
-        return redirect()->back();
-    }
+
 
     // 予約変更入力
     public function change()

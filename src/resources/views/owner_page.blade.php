@@ -89,7 +89,7 @@
         <div class="shop-header-block">
             <p class="shop-header-block__shop-name">{{$shop->name}}＜予約一覧＞</p>
             <div class="shop-header-block__shop-detail-button">
-                <form action="/myshop/detail/{{$shop->id}}" method=" get">
+                <form action="/detail/{{$shop->id}}" method=" get">
                     <button class="detail__button" type="submit">店舗詳細</button>
                 </form>
             </div>
