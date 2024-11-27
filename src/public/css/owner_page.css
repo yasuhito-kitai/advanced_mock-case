@@ -1,0 +1,239 @@
+.owner-page__flex{
+    display: flex;
+    justify-content: center;
+}
+
+/* 初回登録時のみ表示（店舗登録） */
+.shop-register-block{
+    max-width: 62rem;
+    min-width: 35.5rem;
+    width: 100%;
+    background-color: #305DFF;
+    color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0.2rem 0.2rem 0.5rem gray;
+    margin-top: 10rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.shop-register-block__title {
+    margin-left: 3rem;
+}
+
+.shop-register-block__form {
+    background-color: white;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+.shop-register__header{
+    color: black;
+    font-size: 1.5rem;
+    margin-left: 3rem;
+    margin-bottom: 0;
+    height: 4rem;
+    line-height:6rem;
+}
+
+.shop-register__item__input{
+    color: black;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-left: 3rem;
+    margin-bottom: 0rem;
+    max-width: 30rem;
+    width: 90%;
+    height: 3rem;
+    padding: 0 1rem;
+}
+
+.shop-register__item--select{
+    margin-top: 0.5rem;
+    margin-left: 3rem;
+    margin-top: 1rem;
+    height: 3rem;
+    max-width: 20rem;
+    width: 100%;
+    padding: 0 1rem;
+    font-size: 1.5rem;
+}
+
+.shop-register__item--textarea{
+    margin-top: 0.5rem;
+    margin-left: 3rem;
+    margin-top: 1rem;
+    height: 10rem;
+    max-width: 50rem;
+    width: 90%;
+    padding: 0 1rem;
+    font-size: 1.5rem;
+    resize: none;
+}
+
+.shop-register__item--image{
+    color: black;
+    margin-top: 0.5rem;
+    margin-left: 3rem;
+    margin-top: 1rem;
+}
+
+.shop-register__button--btn {
+    margin-top: 2.5rem;
+    margin-left: 3rem;
+    border: none;
+    background-color: #305DFF;
+    color: white;
+    padding: 0.6rem 1.6rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+}
+
+.error-message__text {
+    color: red;
+    margin-left: 3rem;
+    margin-top: 0.5rem;
+}
+
+
+/* 登録後の表示（店舗情報更新、予約状況確認） */
+.shop-header-block{
+    display: flex;
+    justify-content: center;
+}
+
+.display-date__items{
+    display: flex;
+    justify-content: center;
+}
+
+.shop-header-block__shop-name{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.shop-header-block__shop-detail-button{
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.display-date__items{
+    display: flex;
+    align-items: center;
+}
+
+.today__button{
+    margin-right: 2rem;
+}
+
+.display-date__text{
+    text-align: center;
+}
+
+.display-date {
+    font-size: 2rem;
+    margin: 0 0.5rem;
+}
+
+.calendar__items{
+    margin-left: 2rem;
+}
+
+.date-list__row{
+    border-top: 1.3px solid gray;
+    align-items: center;
+}
+
+.date-list__header{
+    font-size: 2rem;
+    padding: 0 3rem;
+}
+
+.date-list__data {
+    font-size: 1.8rem;
+    padding: 0 3rem;
+}
+
+.data-text{
+        text-align: center;
+}
+
+.transition-email__button{
+    padding: 0 1rem;
+}
+
+
+.email-icon{
+    display: none;
+}
+
+.transition-email__button--submit:nth-child(2) {
+    display: none;
+}
+/* レスポンシブデザイン */
+@media screen and (max-width: 768px) {
+.nav{
+    margin-top: 4rem;
+}
+.header {
+    height: 6rem;
+}
+.owner-page__flex{
+min-width: 37.5rem;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.date-list__header,
+.date-list__data {
+    font-size: clamp(1.5rem, 3vw, 1.8rem);
+    padding-left: 0;
+    padding-right:0 ;
+    }
+
+
+.date-list__header:nth-child(2),
+.date-list__data:nth-child(2){
+    width: 11rem;
+}
+
+.date-list__header:nth-child(3),
+.date-list__data:nth-child(3) {
+    min-width: 5rem;
+}
+
+.date-list__header:nth-child(4),
+.date-list__data:nth-child(4) {
+    min-width: 4rem;
+}
+
+
+.transition-email__button--submit:first-child{
+    display: none;
+}
+
+.transition-email__button--submit:nth-child(2) {
+    display: block;
+    margin: 0 auto;
+}
+
+.email-icon {
+    display: block;
+    width: 2rem;
+    height: auto;
+    margin:0 auto;
+}
+
+.email-icon__img{
+    width: 100%;
+    height: 100%;
+}
+
+.visit-status__button--submit{
+    width: 6rem;
+}
+}

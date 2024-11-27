@@ -1,0 +1,195 @@
+
+
+.whole-container {
+    max-width: 132rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.auth-form {
+    max-width: 41rem;
+    min-width: 35.5rem;
+    background-color: #305DFF;
+    color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0.2rem 0.2rem 0.5rem gray;
+    margin-bottom: auto;
+    margin-top: 10rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.auth-section-title {
+    height: 6rem;
+    display: flex;
+    align-items: center;
+}
+
+.section-title__text {
+    margin-left: 2rem;
+    font-size: 2rem;
+    font-weight: lighter;
+}
+
+.auth-form__group {
+    background-color: white;
+    border-radius: 0 0 0.5rem 0.5rem;
+
+}
+
+.auth-form__input {
+    border: none;
+    border-bottom: 1.4px solid black;
+    width: 90%;
+}
+
+.auth-form__item {
+    display: flex;
+    width: 90%;
+}
+
+.email-icon,
+.key-icon,
+.person-icon {
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-top: 2.5rem;
+    margin-left: 2.5rem;
+    margin-right: 1rem;
+}
+
+.email-icon__img,
+.key-icon__img,
+.person-icon__img {
+    height: 100%;
+    width: 100%;
+}
+
+.auth-form__input {
+    margin-top: 2.5rem;
+    width: 32rem;
+    font-size: 1.8rem;
+}
+
+.auth-form__button{
+    display: flex;
+        justify-content: end;
+        margin-right: 4rem;
+}
+
+.auth-form__button--btn {
+    border: none;
+    background-color: #305DFF;
+    color: white;
+    padding: 0.6rem 1.6rem;
+    border-radius: 0.5rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+}
+
+
+
+.email__group {
+    max-width: 62rem;
+    min-width: 35.5rem;
+    width: 100%;
+    background-color: #305DFF;
+    color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0.2rem 0.2rem 0.5rem gray;
+    margin-top: 10rem;
+    margin-left: 1rem;
+    margin-right: 3rem;
+}
+
+.email-section-title {
+    height: 6rem;
+    display: flex;
+    align-items: center;
+}
+
+
+.email-form__group {
+    background-color: white;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.item__header{
+    color: black;
+    margin-top: 0rem;
+    padding-top: 2rem;
+    margin-left: 2rem;
+}
+
+.form-group{
+    width: 95%;
+}
+
+.item__content{
+    color: black;
+    font-size: 1.5rem;
+    margin-left: 3rem;
+    margin-bottom: 0rem;
+    max-width: 55rem;
+    width: 90%;
+}
+
+textarea{
+    height: 15rem;
+    resize: none;
+}
+
+.confirm-button {
+    display: flex;
+    justify-content: center;
+}
+
+.confirm-button--btn{
+    margin-top: 2.5rem;
+    border: none;
+    background-color: #305DFF;
+    color: white;
+    padding: 0.6rem 1.6rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+}
+
+.error-message__text {
+    color: red;
+    margin-left: 6rem;
+}
+
+
+/* レスポンシブデザイン */
+@media screen and (max-width: 768px) {
+    .nav {
+        margin-top: 3.7rem;
+    }
+
+    .header {
+        height: 6.3rem;
+    }
+
+
+.auth-form{
+    margin: 0 auto;
+    margin-top: 10rem;
+
+}
+
+.email__group{
+    margin: 0 auto;
+    margin-top: 10rem;
+    min-width: 35.5rem;
+}
+
+    .whole-container {
+        display: block;
+
+    }
+
+}
