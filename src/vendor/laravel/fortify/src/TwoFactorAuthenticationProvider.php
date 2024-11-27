@@ -38,12 +38,11 @@ class TwoFactorAuthenticationProvider implements TwoFactorAuthenticationProvider
     /**
      * Generate a new secret key.
      *
-     * @param  int  $secretLength
      * @return string
      */
-    public function generateSecretKey(int $secretLength = 16)
+    public function generateSecretKey()
     {
-        return $this->engine->generateSecretKey($secretLength);
+        return $this->engine->generateSecretKey();
     }
 
     /**
