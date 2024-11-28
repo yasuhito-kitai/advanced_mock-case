@@ -364,7 +364,7 @@
     }
 
     .reservation-status-block{
-    margin: 0 auto;
+        margin: 0 auto;
     }
 
     .reservation-status__container {
@@ -375,78 +375,76 @@
         margin-right: 1rem;
     }
 
-
     .favorite-shops-block{
         margin-right: 2rem;
     }
 
-.favorite-shops__title {
+    .favorite-shops__title {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
         gap: 4px;
         justify-items: center;
     }
 
-.favorite-shops__title__title-text {
-    display: flex;
-    justify-content: center;
-}
+    .favorite-shops__title__title-text {
+        display: flex;
+        justify-content: center;
+    }
 
-.favorite-shops__title__title-text:after {
-display: none
-}
+    .favorite-shops__title__title-text:after {
+        display: none
+    }
 
-.favorite-shops__title__title-text__blank {
-    display: none;
-}
+    .favorite-shops__title__title-text__blank {
+        display: none;
+    }
 
-
-.shop-card__flex{
+    .shop-card__flex{
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
         gap: 4px;
         justify-items: center;
     }
 
-.shop-card {
-    width: 100%;
-    max-width: 50rem;
-    height: auto;
-    aspect-ratio: 15 / 14;
-}
+    .shop-card {
+        width: 100%;
+        max-width: 50rem;
+        height: auto;
+        aspect-ratio: 15 / 14;
+    }
 
-.shop-card__img img {
-    height: auto;
-    aspect-ratio: 7 / 4;
-}
+    .shop-card__img img {
+        height: auto;
+        aspect-ratio: 7 / 4;
+    }
 
-.detail-favorite__flex{
-margin-top: 15%;
-}
+    .detail-favorite__flex{
+        margin-top: 15%;
+    }
 
-.shop-card__content__detail{
-    width: 60rem;
-    align-content: center;
-}
+    .shop-card__content__detail{
+        width: 60rem;
+        align-content: center;
+    }
 
-.shop-card__content__detail-btn {
-    width: 100%;
-    max-width: 40%;
-    margin-top: 0;
-    aspect-ratio: 3 / 1;
-}
+    .shop-card__content__detail-btn {
+        width: 100%;
+        max-width: 40%;
+        margin-top: 0;
+        aspect-ratio: 3 / 1;
+    }
 
-.heart {
-    margin-left: 0;
-}
+    .heart {
+        margin-left: 0;
+    }
 
-.shop-card__content-ttl{
-font-size: 2.2rem;
-}
+    .shop-card__content-ttl{
+        font-size: 2.2rem;
+    }
 
-.shop-card__content-tag-item{
-    font-size: 1.6rem;
-}
+    .shop-card__content-tag-item{
+        font-size: 1.6rem;
+    }
 }
 
 

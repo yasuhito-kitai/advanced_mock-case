@@ -38,7 +38,6 @@
                         </div>
                     </div>
 
-
                     <!-- 画像 -->
                     <div class="header__title">
                         <p class="header__title--text">現在の画像</p>
@@ -90,8 +89,6 @@
                         <textarea name="overview" class="detail-content__overview-text">{{$shop_detail->overview}}</textarea>
                     </div>
                 </div>
-
-
 
                 <div class="detail-block__submit">
                     <button type="submit" class="reservation-block__submit-button">確認画面へ</button>

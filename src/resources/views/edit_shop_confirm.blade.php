@@ -50,8 +50,6 @@
                         <p class="detail-content__overview-text">{{$after_details['overview']}}</p>
                     </div>
 
-
-
                     <div class="update-submit">
                         <button class="update-submit__button" type="submit">店舗情報を更新する</button>
                     </div>

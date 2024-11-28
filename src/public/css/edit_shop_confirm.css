@@ -95,26 +95,27 @@ width: 100%;
 }
 
 .update-submit{
-        margin-top: 3rem;
-margin-left: 15rem;
+    margin-top: 3rem;
+    margin-left: 15rem;
 }
 
 
 @media screen and (max-width: 768px) {
     .nav {
-            margin-top: 3.7rem;
-        }
-    
-        .header {
-            height: 6rem;
-        }
+        margin-top: 3.7rem;
+    }
+
+    .header {
+        height: 6rem;
+    }
 
     .detail-block__content{
         margin-right: 1.4rem;
     }
+
 .update-submit{
-    margin-left:0;
-    display: flex;
-    justify-content: center;
-}
+        margin-left:0;
+        display: flex;
+        justify-content: center;
+    }
 }

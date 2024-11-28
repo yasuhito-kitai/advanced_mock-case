@@ -26,10 +26,10 @@
 
 .thanks-card__back-button a{
     text-decoration: none;
-        background-color: #305DFF;
-        color: white;
-        cursor: pointer;
-        border-radius: 0.5rem;
-        padding: 0.9rem 1.8rem;
-        font-size: 1.3rem;
+    background-color: #305DFF;
+    color: white;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    padding: 0.9rem 1.8rem;
+    font-size: 1.3rem;
 }

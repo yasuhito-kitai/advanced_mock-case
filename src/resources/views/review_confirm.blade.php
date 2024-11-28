@@ -52,4 +52,5 @@
             </form>
         </div>
     </div>
-    @stop
+</div>
+@stop

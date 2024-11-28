@@ -144,7 +144,7 @@ class ShopController extends Controller
     }
 
 
-//レビュー作成
+    //レビュー作成
     public function review_make(Request $request)
     {
         //遷移元URLの取得

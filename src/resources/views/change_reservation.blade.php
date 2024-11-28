@@ -125,11 +125,9 @@ use Illuminate\Support\Facades\Auth;
                                 </table>
                             </div>
 
-
                             <div class="reservation-block__submit">
                                 <button type="submit" class="reservation-block__submit-button">確認画面へ</button>
                             </div>
-
                         </form>
 
                         @else

@@ -22,7 +22,6 @@
 }
 
 .detail-block__content {
-
     margin-left: 1.4rem;
 }
 
@@ -86,21 +85,21 @@ textarea {
 
 .reservation-block__submit-button {
     background-color: blue;
-        color: white;
-        height: 4rem;
-        width: 10rem;
-        border: none;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        margin-top: 1rem;
-        margin-left: 20rem;
-        font-size: 1.5rem;
-        box-shadow: 0.2rem 0.2rem 0.5rem gray;
+    color: white;
+    height: 4rem;
+    width: 10rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-left: 20rem;
+    font-size: 1.5rem;
+    box-shadow: 0.2rem 0.2rem 0.5rem gray;
 }
 
 /* レスポンシブデザイン */
 @media screen and (max-width: 768px) {
-.nav {
+    .nav {
         margin-top: 3.7rem;
     }
 
@@ -111,26 +110,28 @@ textarea {
     .header__title{
         margin-right: 0;
     }
-.select__flex {
+
+    .select__flex {
         display: block;
     }
 
-.detail-block__content {
-    margin-left: 0;
-    margin-right: 2rem;
-}
+    .detail-block__content {
+        margin-left: 0;
+        margin-right: 2rem;
+    }
 
-textarea {
-    height: 8rem;
-}
-.reservation-block__submit-button{
-    margin-bottom: 2rem;
-    margin-left: 0;
-}
+    textarea {
+        height: 8rem;
+    }
 
-.detail-block__submit{
+    .reservation-block__submit-button{
+        margin-bottom: 2rem;
+        margin-left: 0;
+    }
+
+    .detail-block__submit{
         display: flex;
         justify-content: center;
         margin-right: 1rem;
-}
+    }
 }

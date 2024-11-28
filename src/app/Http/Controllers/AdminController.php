@@ -27,7 +27,6 @@ class AdminController extends Controller
     {
         // 戻るボタンをクリックされた場合
         if ($request->input('back') == 'back') {
-
             return redirect('/admin-page')
             ->withInput();
         }

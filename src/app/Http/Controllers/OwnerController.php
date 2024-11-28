@@ -27,8 +27,7 @@ class OwnerController extends Controller
 
         $shop=Shop::where("user_id", "=", $user_id)->first();
         
-        if(!$shop)
-        {        
+        if(!$shop){
         $areas = Area::all();
         $genres = Genre::all();
             return view('owner_page',['user_id' => $user_id, 'areas' => $areas, 'genres' => $genres,'shop'=>$shop]);//初回登録時
@@ -200,7 +199,7 @@ class OwnerController extends Controller
     }
 
 
-
+    //表示されている日付－１日
     public function before_day(Request $request)
     {
         $user = Auth::user();
@@ -221,7 +220,7 @@ class OwnerController extends Controller
         return view('owner_page', ['shop' => $shop, 'display_date' => $before_day, 'today' => $today, 'item_records' => $item_records]);
     }
 
-
+    //表示されている日付＋１日
     public function next_day(Request $request)
     {
         $user = Auth::user();
@@ -244,16 +243,15 @@ class OwnerController extends Controller
 
 
 
-
+    //店舗代表者メールフォーム
     public function owner_email(Request $request)
     {
-
         //遷移元URLの取得
         $prevUrl = $_SERVER['HTTP_REFERER'];
 
 
         $receiver = $request->session()->get("form_input");
-   
+
         if($receiver){//確認画面から内容修正する場合
             $user = User::find($receiver['user_id']);
             $receiver = [];
@@ -273,7 +271,7 @@ class OwnerController extends Controller
         return view('email.owner_email', compact('prevUrl','receiver'));
     }
 
-
+    //店舗代表者メール内容確認
     public function owner_email_confirm(EmailRequest $request)
     {
 
@@ -283,9 +281,7 @@ class OwnerController extends Controller
 
     }
 
-        
-
-
+    //店舗代表者メール送信
     public function owner_email_send(Request $request)
     {
 
@@ -309,21 +305,20 @@ class OwnerController extends Controller
         Mail::to($email)->send(new OwnerEmail($user_email, $shop_name,$subject,$body));
         $request->session()->forget('form_input');
         return redirect('/');
-        
     }
 
+    //利用者の来店ステータス変更画面
     public function visit_status(Request $request)
     {
         //遷移元URLの取得
         $prevUrl = $_SERVER['HTTP_REFERER'];
-
         $reservation_record = Reservation::find($request->reservation_id);
-
         return view('visit_status_change', compact('prevUrl', 'reservation_record'));
     }
 
-    public function visit_status_update(Request $request) {
-    
+    //利用者の来店ステータス変更実行
+    public function visit_status_update(Request $request)
+    {
         Reservation::find($request->reservation_id)->update(['visit_status'=>1]);
         $prevUrl=$request->prevUrl;
         return redirect($prevUrl);

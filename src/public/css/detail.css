@@ -1,9 +1,7 @@
-
-
 .whole-container {
     display: flex;
-justify-content: space-between;
-max-width: 134rem;
+    justify-content: space-between;
+    max-width: 134rem;
     margin: 0 auto;
 }
 
@@ -153,35 +151,37 @@ select {
 /* レスポンシブデザイン */
 @media screen and (max-width: 768px) {
 
-        .nav {
-            margin-top: 3.7rem;
-        }
+    .nav {
+        margin-top: 3.7rem;
+    }
 
-        .header {
-            height: 6rem;
-        }
+    .header {
+        height: 6rem;
+    }
 
     .whole-container {
-flex-direction:column;
-margin: 0 auto;
+        flex-direction:column;
+        margin: 0 auto;
     }
-.detail-block{
-    margin: 0 auto;
-    min-width: 37.5rem;
-}
 
-.detail-block__content
-{
-    margin-right: 1rem;
-}
-.reservation-block__container{
-    margin: 0 auto;
-width: 100%;
-max-width:60rem ;
-height: 100%;
-}
-.reservation-block{
-margin-top: 1rem;
-    margin-bottom: 3rem;
-}
+    .detail-block{
+        margin: 0 auto;
+        min-width: 37.5rem;
+    }
+
+    .detail-block__content{
+        margin-right: 1rem;
+    }
+
+    .reservation-block__container{
+        margin: 0 auto;
+        width: 100%;
+        max-width:60rem ;
+        height: 100%;
+    }
+
+    .reservation-block{
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+    }
 }
