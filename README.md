@@ -45,10 +45,10 @@ http://localhost/
 
 
 ## 使用技術
-・PHP 8.3.0
-・Laravel 11.28.1
-・nginx 1.24.0
-・MySQL 10.11.6
+- PHP 8.3.0
+- Laravel 11.28.1
+- nginx 1.24.0
+- MySQL 10.11.6
 
 ## テーブル設計
 ![alt text](/readme-img/usersテーブル.png)
@@ -130,6 +130,7 @@ php artisan storage:link
 
 **アプリケーションへのアクセス確認**
 http://localhost/
+
 ※Permission deniedというエラーが発生した場合は、phpコンテナから一度出て
 ```
 sudo chmod -R 777 src/*
