@@ -14,34 +14,34 @@ http://localhost/
 
 
 ## 機能一覧
-・会員登録、ログイン、ログアウト
-・メール認証
-・ユーザー情報取得
-・ユーザー飲食店お気に入り一覧取得
-・ユーザー飲食店予約情報取得
-・ユーザー飲食店予約履歴情報取得（来店済のみ）
-・飲食店一覧取得
-・飲食店詳細取得
-・店舗お気に入り追加、削除
-・飲食店予約情報追加、日時および人数変更、削除
-・エリア検索
-・ジャンル検索
-・店名検索
-・評価機能（５段階評価およびコメント投稿）
-・来店時照合用QRコード表示
-・リマインダー（予約当日の朝に予約情報のリマインダーメール送付）
-・有料サービスの決済
+- 会員登録、ログイン、ログアウト
+- メール認証
+- ユーザー情報取得
+- ユーザー飲食店お気に入り一覧取得
+- ユーザー飲食店予約情報取得
+- ユーザー飲食店予約履歴情報取得（来店済のみ）
+- 飲食店一覧取得
+- 飲食店詳細取得
+- 店舗お気に入り追加、削除
+- 飲食店予約情報追加、日時および人数変更、削除
+- エリア検索
+- ジャンル検索
+- 店名検索
+- 評価機能（５段階評価およびコメント投稿）
+- 来店時照合用QRコード表示
+- リマインダー（予約当日の朝に予約情報のリマインダーメール送付）
+- 有料サービスの決済
 
 ＜管理者のみ＞
-・店舗代表者登録
-・利用者全員へのお知らせメール送付
+- 店舗代表者登録
+- 利用者全員へのお知らせメール送付
 
 ＜店舗代表者のみ＞
-・店舗テキスト情報登録（１ユーザーにつき１店舗）
-・店舗画像登録（１画像）
-・店舗情報更新
-・予約一覧取得（１日単位で表示）
-・予約者へのお知らせメール送付
+- 店舗テキスト情報登録（１ユーザーにつき１店舗）
+- 店舗画像登録（１画像）
+- 店舗情報更新
+- 予約一覧取得（１日単位で表示）
+- 予約者へのお知らせメール送付
 
 
 ## 使用技術
@@ -93,7 +93,9 @@ DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+
 ~中略~
+
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog
 MAIL_PORT=1025
@@ -102,7 +104,9 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS="info@example.com"
 MAIL_FROM_NAME="${APP_NAME}"
+
 ~中略~（以下、追加項目）
+
 STRIPE_KEY=pk_test_51QA9jAK8zirmmtBqSTkynQElpZp1hPYwJ5TgKQSNIpa3iLCh9DoEsoyJMyKRC38siqwE1ggiXFBze8oh8p0dt5zw005Nyp17N5
 STRIPE_SECRET=sk_test_51QA9jAK8zirmmtBqOOoTm8ko6Ske34B1dSmzqjlkLtBjqIJ2Io7KVaKhnHXpV3MvP3qXwFUUwSkM0TGA3Ut6WcpI00JI4N56Jq
 STRIPE_PRICE_ID=price_1QAjNuK8zirmmtBqjNLwb0tJ
@@ -138,8 +142,8 @@ sudo chmod -R 777 src/*
 を実行してください。
 
 ## 管理者アカウント（テストユーザー）
-（メールアドレス）admin@sample.com
-（パスワード）password
+- （メールアドレス）admin@sample.com
+- （パスワード）password
 
 ## 機能詳細説明・補足
 - **＜評価機能＞**
