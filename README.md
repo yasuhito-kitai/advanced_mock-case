@@ -79,8 +79,8 @@ http://localhost/
    2. ![alt text](/readme-img/fortify.png)
    3. \src\vendor\laravel\fortify\routes\routes.phpの77行目をコメントアウト（または削除）し、76行目の最後にセミコロンを追加
    4. ![alt text](/readme-img/route.png)
-   5. \src\vendor\laravel\fortify\src\Http\Controllers\RegisteredUserController.phpに
-   (1)use App\Http\Requests\RegisterRequest;をインポート
+   5. \src\vendor\laravel\fortify\src\Http\Controllers\RegisteredUserController.phpに  
+   (1)use App\Http\Requests\RegisterRequest;をインポート  
    (2)54行目のRequest \$requestを  
    　 RegisterRequest \$requestに修正
    ![alt text](/readme-img/RegisterRequest.png)
