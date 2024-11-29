@@ -14,8 +14,6 @@
         <div class="review-confirm-form__group">
             <form action="/mypage/review/send" method="post">
                 @csrf
-                <input type="hidden" name="user_id" value="{{$review_content['user_id']}}">
-                <input type="hidden" name="shop_id" value="{{$review_content['shop_id']}}">
                 <input type="hidden" name="reservation_id" value="{{$review_content['reservation_id']}}">
                 <input type="hidden" name="star" value="{{$review_content['star']}}">
                 <input type="hidden" name="comment" value="{{$review_content['comment']}}">

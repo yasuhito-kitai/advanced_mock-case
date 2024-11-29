@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('shop_id')->constrained()->cascadeOnDelete();
             $table->foreignId('reservation_id')->constrained()->cascadeOnDelete();
             $table->integer('star')->default(0);
             $table->text('comment');

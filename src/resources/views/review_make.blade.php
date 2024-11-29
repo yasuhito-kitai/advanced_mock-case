@@ -21,8 +21,6 @@
             <div class="review-form__group">
                 <form action="/mypage/review/confirm" method="post">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{$reservation_record['user_id']}}">
-                    <input type="hidden" name="shop_id" value="{{$reservation_record['shop_id']}}">
                     <input type="hidden" name="reservation_id" value="{{$reservation_record['id']}}">
                     <input type="hidden" name="shop_name" value="{{$reservation_record['shop_name']}}">
                     <h2 class="item__header">評価</h2>

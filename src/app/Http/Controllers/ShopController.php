@@ -156,18 +156,14 @@ class ShopController extends Controller
             $reservation_items = Reservation::find($review_content['reservation_id']);
             $reservation_record = [];
             $reservation_record['id'] = $reservation_items->id;
-            $reservation_record['user_id'] = $reservation_items->user_id;
             $reservation_record['shop_name'] = $reservation_items->shop->name;
-            $reservation_record['shop_id'] = $reservation_items->shop_id;
             $request->session()->forget('form_input');
         } else {
             $reservation_items = Reservation::find($request->id);
 
             $reservation_record = [];
             $reservation_record['id'] = $reservation_items->id;
-            $reservation_record['user_id'] = $reservation_items->user_id;
             $reservation_record['shop_name'] = $reservation_items->shop->name;
-            $reservation_record['shop_id'] = $reservation_items->shop_id;
         }
 
 
@@ -178,7 +174,7 @@ class ShopController extends Controller
     //レビュー確認
     public function review_confirm(ReviewRequest $request)
     {
-        $review_content = $request->only(['user_id','shop_id','reservation_id','shop_name','star','comment']);
+        $review_content = $request->only(['reservation_id','shop_name','star','comment']);
         $request->session()->put("form_input", $review_content);
         return view('review_confirm', compact('review_content'));
     }
@@ -193,7 +189,7 @@ class ShopController extends Controller
         ->withInput();
         }
 
-        $review_confirm = $request->only(['user_id','shop_id', 'reservation_id', 'star', 'comment']);
+        $review_confirm = $request->only(['reservation_id', 'star', 'comment']);
         Review::create($review_confirm);
         return redirect ('/mypage');
     }
