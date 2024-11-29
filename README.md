@@ -79,8 +79,14 @@ http://localhost/
    2. ![alt text](/readme-img/fortify.png)
    3. \src\vendor\laravel\fortify\routes\routes.phpの77行目をコメントアウト（または削除）し、76行目の最後にセミコロンを追加
    4. ![alt text](/readme-img/route.png)
-   5. \src\vendor\laravel\fortify\src\Http\Controllers\RegisteredUserController.phpの＄this->guard->login(＄user);をif (＄user->role == "general"){＄this->guard->login($user);}に修正
-   6. ![alt text](/readme-img/controller.png)
+   5. \src\vendor\laravel\fortify\src\Http\Controllers\RegisteredUserController.phpに
+   (1)use App\Http\Requests\RegisterRequest;をインポート
+   (2)54行目のRequest \$requestを  
+   　 RegisterRequest \$requestに修正
+   ![alt text](/readme-img/RegisterRequest.png)
+   (3)\$this->guard->login(\$user);を  
+   　 if (\$user->role == "general"){\$this->guard->login($user);}に修正
+     ![alt text](/readme-img/controller.png)
 4. `cp .env.sample .env` 新しく.envファイルを作成。(または、「.env.example」ファイルを 「.env」ファイルに命名を変更。)
 5. .envを以下の環境変数に修正、追加
 
