@@ -1,0 +1,4 @@
+﻿name,user_id,area_id,genre_id,overview,image
+ラーメン屋A,,13,5,ラーメン好きを唸らせる自信があります！最高の一杯を味わってください！,https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/ramen.jpg
+寿司屋B,,27,1,気軽に楽しめる寿司屋です。ランチもリーズナブルな値段で楽しむことができます。,https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg
+焼肉屋C,,40,2,素材にこだわった焼肉屋です。お酒にもこだわっているので、是非一度ご賞味ください！,https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/yakiniku.jpg

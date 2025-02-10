@@ -19,10 +19,11 @@
             </div>
 
             <div class="review-form__group">
-                <form action="/mypage/review/confirm" method="post">
+                <form action="/mypage/review/confirm" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="reservation_id" value="{{$reservation_record['id']}}">
                     <input type="hidden" name="shop_name" value="{{$reservation_record['shop_name']}}">
+                    <input type="hidden" name="shop_id" value="{{$reservation_record['shop_id']}}">
                     <h2 class="item__header">評価</h2>
                     <div class="form-group">
                         <select class="item__content--star" name="star">
@@ -53,6 +54,18 @@
                         <p class="error-message__text">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <h2 class="item__header">画像</h2>
+                    <div class="file-button">
+                        <input type="file" class="file-button--input" name="image" >
+                    </div>
+
+                    <div class="error-message">
+                        @error('image')
+                        <p class="error-message__text">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <div class="confirm-button">
                         <button type="submit" class="confirm-button--btn">確認画面へ</button>
                     </div>

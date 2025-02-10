@@ -192,5 +192,14 @@ class ShopsTableSeeder extends Seeder
             'overview' => '毎日店主自ら市場等に出向き、厳選した魚介類が、お鮨をはじめとした繊細な料理に仕立てられます。また、選りすぐりの種類豊富なドリンクもご用意しております。',
             'image' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg'
         ]);
+
+        DB::table('shops')->insert([
+            'name' => 'sample店舗',
+            'user_id' => '2',
+            'area_id' => '13',
+            'genre_id' => '1',
+            'overview' => 'この店舗は動作確認用店舗です。メールアドレス：owner@sample.com　パスワード：password',
+            'image' => '/img/noimage.jpg'
+        ]);
     }
 }

@@ -9,7 +9,6 @@
 .auth-form {
     max-width: 41rem;
     min-width: 35.5rem;
-    background-color: #305DFF;
     color: white;
     border-radius: 0.5rem;
     box-shadow: 0.2rem 0.2rem 0.5rem gray;
@@ -23,18 +22,35 @@
     height: 6rem;
     display: flex;
     align-items: center;
+    background-color: #305DFF;
+    border-radius:0.5rem 0.5rem 0 0;
 }
 
 .section-title__text {
     margin-left: 2rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: lighter;
 }
 
 .auth-form__group {
     background-color: white;
     border-radius: 0 0 0.5rem 0.5rem;
+}
 
+.import__box{
+    margin-top: 1rem;
+    background-color: white;
+    color: black;
+        border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.section-title__text{
+    padding-top: 2rem;
+}
+
+.import__form{
+    padding-bottom: 2rem;
+    margin-left: 2rem;
 }
 
 .auth-form__input {

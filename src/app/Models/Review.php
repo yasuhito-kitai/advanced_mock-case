@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Review extends Model
 {
     use HasFactory;
-    protected $fillable = ['reservation_id', 'star', 'comment'];
+    protected $fillable = ['reservation_id', 'star', 'comment','image'];
 
-    public function user()
+    public function reservation()
     {
-        //
+        return $this->belongsTo(Reservation::class);
     }
+
+
 }

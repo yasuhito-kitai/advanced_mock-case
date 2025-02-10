@@ -77,8 +77,16 @@
 }
 
 textarea {
-    height: 15rem;
+    height: 12rem;
     resize: none;
+}
+
+.file-button{
+    margin-left: 3rem;
+}
+
+.file-button--input{
+    color: black;
 }
 
 .confirm-button {

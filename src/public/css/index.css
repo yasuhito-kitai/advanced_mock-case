@@ -20,11 +20,32 @@ select {
     box-shadow: 0.2rem 0.2rem 0.5rem gray;
 }
 
+.sort__box{
+    display: flex;
+    align-items: center;
+margin-left: 1rem;
+}
+
+.sort__title{
+width: 7rem;
+font-size: 1.3rem;
+}
+
+.search-form__item-sort--select {
+    border: none;
+    border-right: 1.3px solid #dcdcdc;
+    height: 3rem;
+    width: 11rem;
+    font-size: 1.3rem;
+
+}
+
 .search-form__item-area--select{
     border: none;
     border-right: 1.3px solid #dcdcdc;
     height: 3rem;
-    width: 9.8rem;
+    width: 10rem;
+    min-width: 8rem;
     font-size: 1.3rem;
     margin-left: 1.5rem;
 }
@@ -33,7 +54,8 @@ select {
     border: none;
     border-right: 1.3px solid #dcdcdc;
     height: 3rem;
-    width: 9.8rem;
+    width: 12rem;
+    min-width: 10rem;
     font-size: 1.3rem;
     margin-left: 1.5rem;
 }
@@ -47,13 +69,17 @@ select {
 
 .search-form__item-keyword--input{
     appearance: none;
-    margin-left: 5rem;
+    margin-left: 4rem;
     border: none;
     height: 3.5rem;
-    width: 140%;
+    width: 70%;
     font-size: 1.3rem;
 }
 
+.notFound-message{
+    margin-top: 5rem;
+    margin-left: 2rem;
+}
 .shop-card__flex-wrapper {
     max-width: 135rem;
     margin: 0 auto;
@@ -105,16 +131,28 @@ select {
     border-radius: 0.5rem 0.5rem 0 0;
 }
 
+.shop-card__header{
+    display: flex;
+}
+
+.shop-card__content-star{
+    color: #ffd700;
+        margin: auto 0 auto 1.5rem;
+            font-size: 2.5rem;
+}
+
 .shop-card__content {
     padding: 1.5rem 2.5rem;
-
 }
 
 .shop-card__content-ttl {
     font-size: 1.9rem;
-    margin: 0 auto;
 }
 
+.shop-card__content-rating{
+        margin: auto 0 auto 0.5rem;
+            font-size: 1.5rem;
+}
 
 .shop-card__content-tag {
     font-size: 1.4rem;
@@ -207,7 +245,7 @@ select {
     }
 
     .search-form__item-keyword--input {
-        width: 32vw;
+        width: 60%;
     }
 
     .shop-card__flex-wrapper{

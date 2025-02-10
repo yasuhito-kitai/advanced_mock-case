@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('reservation_id')->constrained()->cascadeOnDelete();
             $table->integer('star')->default(0);
             $table->text('comment');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

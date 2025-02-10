@@ -2,19 +2,22 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/review_confirm.css') }}">
+<link rel="stylesheet" href="{{ asset('css/review_edit_confirm.css') }}">
 @stop
 
 @section('content')
 <div class="review-confirm__group__flex">
     <div class="review-confirm__group">
         <div class="review-confirm-section-title">
-            <h2 class="section-title__text">「{{$review_content['shop_name']}}」レビュー投稿確認</h2>
+            <h2 class="section-title__text">「{{$review_content['shop_name']}}」レビュー内容確認</h2>
         </div>
 
         <div class="review-confirm-form__group">
-            <form action="/mypage/review/send" method="post">
+            <form action="/review/update" method="post">
                 @csrf
+                @method('PATCH')
                 <input type="hidden" name="reservation_id" value="{{$review_content['reservation_id']}}">
+                <input type="hidden" name="shop_id" value="{{$review_content['shop_id']}}">
                 <input type="hidden" name="star" value="{{$review_content['star']}}">
                 <input type="hidden" name="comment" value="{{$review_content['comment']}}">
                 <input type="hidden" name="image" value="{{$image_path}}">
@@ -40,8 +43,10 @@
                 </div>
 
                 <h2 class="item__header">画像</h2>
+                
                 <div class="image">
                     <img src="{{$tmp_image_path}}">
+
                 </div>
 
                 <div class="button__group">

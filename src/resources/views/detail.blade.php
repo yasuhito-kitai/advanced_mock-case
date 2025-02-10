@@ -18,11 +18,13 @@
                 <a class="detail-block__back-button--button" href="/mypage">＜</a>
                 @elseif (preg_match("/mypage/", $currentUrl))
                 <a class="detail-block__back-button--button" href="/mypage">＜</a>
+                @elseif (preg_match("/review/", $prevUrl))
+                <a class="detail-block__back-button--button" href="/">＜</a>
                 @else
-                <a class="detail-block__back-button--button" href="{{ url()->previous() }}">＜</a>
+                <input class="detail-block__back-button--button" type="button" onclick="history.back()" value="＜"></input>
                 @endif
                 @else
-                <a class="detail-block__back-button--button" href="{{ url()->previous() }}">＜</a>
+                <input class="detail-block__back-button--button" type="button" onclick="history.back()" value="＜"></input>
                 @endif
             </div>
 
@@ -44,6 +46,68 @@
             <div class="detail-content__overview">
                 <p class="detail-content__overview-text">{{$shop_detail->overview}}</p>
             </div>
+        </div>
+
+        <div class="detail-content__review">
+            <div class="review__header">全ての口コミ情報</div>
+            @foreach($reviews as $review)
+            <!-- 投稿ユーザーのみ編集と削除可 -->
+            @if (Auth::id() === $review->reservation->user_id)
+            <div class="review__edit-delete">
+                <div class="review__edit">
+                    <form class="edit-form" action="/review/edit" method="get">
+                        <input type="hidden" name="id" value="{{$review->reservation_id}}">
+                        <input class="review-edit__button" type="submit" value="口コミを編集">
+                    </form>
+                </div>
+
+                <div class="review__delete">
+                    <form class="delete-form" action="/review/delete" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <input type="hidden" name="id" value="{{$review->reservation_id}}">
+                        <input type="hidden" name="shop_id" value="{{$shop_detail->id}}">
+                        <input class="review-delete__button" type="submit" value="口コミを削除" onclick="return confirm('口コミを削除しますか？')">
+                    </form>
+                </div>
+            </div>
+            @endif
+
+            <!-- 管理者だけはすべての口コミを削除可 -->
+            @can('admin')
+            <div class="review__delete">
+                <form class="delete-form" action="/review/delete" method="post">
+                    @method('DELETE')
+                    @csrf
+                    <input type="hidden" name="id" value="{{$review->reservation_id}}">
+                    <input type="hidden" name="shop_id" value="{{$shop_detail->id}}">
+                    <input class="review-delete__button" type="submit" value="口コミを削除" onclick="return confirm('口コミを削除しますか？')">
+                </form>
+            </div>
+            @endcan
+
+            <div class="review__content">
+                <div class="review--star__group">
+                    @if($review->star==5)
+                    <div class="review--star">★★★★★</div>
+                    @elseif($review->star==4)
+                    <div class="review--star">★★★★☆</div>
+                    @elseif($review->star==3)
+                    <div class="review--star">★★★☆☆</div>
+                    @elseif($review->star==2)
+                    <div class="review--star">★★☆☆☆</div>
+                    @else
+                    <div class="review--star">★☆☆☆☆</div>
+                    @endif
+                </div>
+
+                <div class="review--comment" style="white-space: pre-wrap;">{{$review->comment}}</div>
+
+                @if(isset($review->image))
+                <div class="review--image"><img src="{{$review->image}}"></div>
+                @endif
+            </div>
+            @endforeach
         </div>
     </div>
 
@@ -151,6 +215,30 @@
             <div class="detail-content__overview">
                 <p class="detail-content__overview-text">{{$shop_detail->overview}}</p>
             </div>
+        </div>
+
+        <div class="detail-content__review">
+            <div class="review__header">全ての口コミ情報</div>
+            @foreach($reviews as $review)
+            <div class="review__content">
+                <div class="review--star__group">
+                    @if($review->star==5)
+                    <div class="review--star">5★★★★★</div>
+                    @elseif($review->star==4)
+                    <div class="review--star">4★★★★☆</div>
+                    @elseif($review->star==3)
+                    <div class="review--star">3★★★☆☆</div>
+                    @elseif($review->star==2)
+                    <div class="review--star">2★★☆☆☆</div>
+                    @else
+                    <div class="review--star">1★☆☆☆☆</div>
+                    @endif
+                </div>
+
+                <div class="review--comment">{{$review->comment}}</div>
+                <div class="review--image"><img src="{{$review->image}}"></div>
+            </div>
+            @endforeach
         </div>
     </div>
 

@@ -5,6 +5,7 @@
 @stop
 
 @section('content')
+
 <div class="whole-container">
     <div class="auth-form">
         <div class="auth-section-title">
@@ -56,8 +57,30 @@
                 </div>
             </form>
         </div>
-    </div>
 
+        <div class="import__box">
+            <div class="section-title__text">店舗情報のインポート（csv）</div>
+            <form class="import__form" action="/import-csv" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="csv_file" required>
+                <button type="submit">インポート</button>
+            </form>
+
+            @if(session('success'))
+            <p>{{ session('success') }}</p>
+            @endif
+            <!-- エラーメッセージを表示 -->
+            @if($errors->any())
+            <div class="errors">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+        </div>
+    </div>
 
     <div class="email__group">
         <div class="email-section-title">

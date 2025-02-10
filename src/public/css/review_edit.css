@@ -1,0 +1,24 @@
+.current-image--title,
+.new-image--title{
+    color: black;
+    margin-left: 3rem;
+}
+
+.current-image--image{
+    width: 30%;
+    margin-left: 4rem;
+}
+
+.current-image--image img{
+    width: 100%;
+}
+
+.file-button--input{
+    margin-left: 2rem;
+}
+
+.current-image--no-image{
+    color: black;
+    margin-bottom: 1rem;
+    margin-left: 5rem;
+}

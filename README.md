@@ -74,17 +74,17 @@ http://localhost/
 **Laravel環境構築**
 1. `docker-compose exec php bash`
 2. `composer install`
-3. （暫定）\src\vendor内の３ファイルに修正を加えるため、PHPコンテナから出て`sudo chmod 777 -R .`を実行の上、以下のi~ⅵの修正をしてください。
+3. （暫定）\src\vendor内の３ファイルに修正を加えるため、`chmod 777 -R .`を実行の上、以下のi~iiiの修正をしてください。
    1. \src\vendor\laravel\fortify\config\fortify.phpの57行目を　'register'=>'thanks',　に修正
-   2. ![alt text](/readme-img/fortify.png)
-   3. \src\vendor\laravel\fortify\routes\routes.phpの77行目をコメントアウト（または削除）し、76行目の最後にセミコロンを追加
-   4. ![alt text](/readme-img/route.png)
-   5. \src\vendor\laravel\fortify\src\Http\Controllers\RegisteredUserController.phpに  
-   (1)use App\Http\Requests\RegisterRequest;をインポート  
-   (2)54行目のRequest \$requestを  
+      ![alt text](/readme-img/fortify.png)
+   2. \src\vendor\laravel\fortify\routes\routes.phpの77行目をコメントアウト（または削除）し、76行目の最後にセミコロンを追加
+      ![alt text](/readme-img/route.png)
+   3. \src\vendor\laravel\fortify\src\Http\Controllers\RegisteredUserController.phpに  
+   (i)use App\Http\Requests\RegisterRequest;をインポート  
+   (ii)54行目のRequest \$requestを  
    　 RegisterRequest \$requestに修正
    ![alt text](/readme-img/RegisterRequest.png)
-   (3)\$this->guard->login(\$user);を  
+   (iii)\$this->guard->login(\$user);を  
    　 if (\$user->role == "general"){\$this->guard->login($user);}に修正
      ![alt text](/readme-img/controller.png)
 4. `cp .env.sample .env` 新しく.envファイルを作成。(または、「.env.example」ファイルを 「.env」ファイルに命名を変更。)
@@ -149,22 +149,53 @@ sudo chmod -R 777 src/*
 ```
 
 
-## 管理者アカウント（テストユーザー）
-- （メールアドレス）admin@sample.com
-- （パスワード）password
+## テストユーザー
+- **管理者**  
+（メールアドレス）admin@sample.com  
+（パスワード）password
+
+- **店舗代表者**  
+（メールアドレス）owner@sample.com  
+（パスワード）password
+
+- **一般ユーザー１**  
+（メールアドレス）general1@sample.com  
+（パスワード）password
+
+- **一般ユーザー２**  
+（メールアドレス）general2@sample.com  
+（パスワード）password
+
+- **一般ユーザー３**  
+（メールアドレス）general3@sample.com  
+（パスワード）password
 
 ## 機能詳細説明・補足
 - **＜評価機能＞**  
-　予約したお店に来店した後に、利用者が店舗を5段階評価とコメントができます。マイページの予約履歴タブに来店済の店舗履歴が表示されますので、履歴番号右側の「レビューを書く」ボタンを押下し、投稿フォーム画面に移動してください。
+　予約したお店に来店した後に、利用者が店舗を5段階評価とコメントができます。マイページの予約履歴タブに来店済の店舗履歴が表示されますので、履歴番号右側の「レビューを書く」ボタンを押下し、投稿フォーム画面に移動してください。（テキスト：400文字以内、自由記述、星(1~5)：選択式、画像：jpeg、pngのみアップロード可能。）  
+　※なお、評価機能を有効にするには来店済ステータスへの変更が必要となります。詳細は次項をご確認ください。
 - **＜来店済ステータスへの変更＞**  
 　評価機能を有効にするためには、利用者の来店状況ステータスを来店済に変更する必要がなります。現在、暫定的に店舗代表者専用Owner-pageの予約一覧画面の「来店済にする」ボタンを押下することで利用者のステータスを変更できます。
 - **＜レスポンシブデザイン＞**  
 　タブレット・スマートフォン用のレスポンシブデザインを採用しています。（ブレイクポイントは768px）
-- **＜管理画面＞**  
+- **＜管理画面（管理者、店舗代表者のみ）＞**  
 　管理者と店舗代表者にはそれぞれ専用の管理画面が用意されています。画面左上のメニューアイコンに管理者はAdmin-page、店舗代表者はOwner-pageが表示されます。
 - **＜管理者用管理画面　Admin-page＞**  
-　店舗代表者登録後に認証のためのメールが登録したアドレスへ送付されます。店舗代表者側でメールの確認、認証を行っていただいてください。
-　利用者へのお知らせメールは、アプリに登録されている全利用者（固定）へ送付されます。
+１ 店舗代表者登録  
+　店舗代表者登録後に認証のためのメールが登録したアドレスへ送付されます。店舗代表者側でメールの確認、認証を行っていただいてください。  
+２ 店舗情報のインポート  
+　《name》、《user_id》、《area_id》、《genre_id》、《overview》、《image》のタイトル行を持つCSVファイルで店舗情報をインポートできます。  
+| タイトル行 | 内容 | 説明 |
+| :---: | :---: | :---: |
+| name    |   店舗名   | 必須項目　全角50文字以内 |
+| user_id    |    ユーザーid  |  空欄可 |
+| area_id    |    地域id  |  必須項目　※13：東京、27：大阪、40：福岡のみ）|
+| genre_id    |    ジャンルid  | 必須項目 1:寿司、2:焼肉、3:居酒屋、4:イタリアン、5:ラーメン|
+| overview    |    店舗概要  | 必須項目　全角400文字以内 |
+| image    |    店舗画像  | 必須項目 jpg、jpeg、pngのみアップロード可能 |
+![alt text](/readme-img/import.png)
+　３ メール送信機能  
+　利用者へのお知らせメールは、アプリに登録されている全利用者（固定）へ送付されます。  
 - **＜店舗代表者用管理画面　Owner-page＞**  
 　初回（店舗未登録時）は店舗登録フォームが表示されますので、店舗登録をする必要があります。店舗画像については、初回登録時に登録しないこともできます（その場合はNOW　PRINTING画像が代わりに登録されます）。店舗画像を含め、店舗情報は随時更新可能です。
 　利用者へのお知らせメールは予約者にのみ送付することが可能です。

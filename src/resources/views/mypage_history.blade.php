@@ -60,14 +60,18 @@ use Illuminate\Support\Facades\Auth;
                             <div class="history-number">
                                 <p class="history-number__text">履歴 {{$index+1}}</p>
                             </div>
-                            @if($reservation_detail->visit_status=="1")
+
+                            @if (!in_array($reservation_detail->id, $reviewed_reservations))
                             <form class="review-form" action="/mypage/review/make" method="get">
                                 <div class="make_review">
                                     <input type="hidden" name="id" value="{{ $reservation_detail->id }}">
                                     <input class="make_review__button" type="submit" value="レビューを書く"></input>
                                 </div>
                             </form>
+                            @else
+                            <div>レビュー投稿済</div>
                             @endif
+
                         </div>
 
                         <table class="reservation-details">

@@ -6,12 +6,13 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\CsvImportController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
 
-Route::get('/', [ShopController::class, 'index']);
-Route::get('/detail/{id}', [ShopController::class, 'detail']);
+Route::get('/', [ShopController::class, 'index'])->name('index');
+Route::get('/detail/{id}', [ShopController::class, 'detail'])->name('detail');
 Route::get('/search_shop',[ShopController::class, 'search_shop']);
 
 //ユーザー登録、メール認証完了のユーザー用
@@ -33,6 +34,7 @@ Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/admin-page', [AdminController::class, 'index']);
     Route::post('/admin-email/confirm', [AdminController::class, 'admin_email_confirm']);
     Route::post('/admin-email/send', [AdminController::class, 'admin_email_send']);
+    Route::post('import-csv',[CsvImportController::class,'import']);
 });
 
 //店舗代表者用ルート
@@ -45,6 +47,7 @@ Route::group(['middleware' => ['auth', 'can:owner']], function () {
 
     Route::post('/shop/register/confirm',[OwnerController::class,'create']);
     Route::post('/shop/register/done', [OwnerController::class, 'store']);
+    Route::get('/shop/edit/{id}', [OwnerController::class, 'edit']);
     Route::post('/shop/edit/{id}/confirm', [OwnerController::class, 'update_confirm']);
     Route::patch('/shop/edit/{id}/update', [OwnerController::class, 'update']);
 
@@ -68,6 +71,11 @@ Route::group(['middleware' => ['auth', 'can:general']], function () {
     Route::get('/mypage/review/make', [ShopController::class, 'review_make']);
     Route::post('/mypage/review/confirm', [ShopController::class, 'review_confirm']);
     Route::post('/mypage/review/send', [ShopController::class, 'review_send']);
+
+    Route::get('/review/edit', [ShopController::class, 'review_edit']);
+    Route::post('/review/edit/confirm', [ShopController::class, 'review_edit_confirm']);
+    Route::patch('/review/update', [ShopController::class, 'review_update']);
+    Route::delete('/review/delete', [ShopController::class, 'review_destroy']);
 });
 
 

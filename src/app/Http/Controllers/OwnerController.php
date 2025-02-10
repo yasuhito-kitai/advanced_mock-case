@@ -176,7 +176,6 @@ class OwnerController extends Controller
             Shop::find($request->id)->update(['image'=>'/storage/'.$image_name['image_name']]);
         }
 
-
         return redirect('/owner-page')->with('message', '店舗情報を更新しました');
     }
 

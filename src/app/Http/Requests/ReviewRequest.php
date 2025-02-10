@@ -23,7 +23,8 @@ class ReviewRequest extends FormRequest
     {
         return [
             "star" => ["numeric"],
-            "comment" => ["required"]
+            "comment" => ["required","max:400"],
+            "image" => ["mimes:jpeg,png", "extensions:jpeg,png"],
         ];
     }
 
@@ -31,7 +32,9 @@ class ReviewRequest extends FormRequest
     {
         return [
             "star.numeric" => "評価を選択してください",
-            "comment.required" => "コメントを入力してください"
+            "comment.required" => "コメントを入力してください",
+            "comment.max" => "400字以内で入力してください",
+            "image.mimes" => "アップロードできる画像の種類は JPEG (.jpeg) 、PNG(.png)のみです"
         ];
     }
 }

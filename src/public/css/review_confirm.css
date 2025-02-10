@@ -43,6 +43,14 @@
     max-width: 55rem;
 }
 
+.image {
+    width: 40%;
+}
+
+.image img{
+    width: 100%;
+}
+
 .back__btn {
     margin-top: 2.5rem;
     border: none;

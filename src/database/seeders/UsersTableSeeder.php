@@ -20,5 +20,37 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => '2024-01-01 12:00:00',
             'password' => bcrypt('password')
         ]);
+
+        DB::table('users')->insert([
+            'role' => 'owner',
+            'name' => 'test店舗代表者',
+            'email' => 'owner@sample.com',
+            'email_verified_at' => '2024-01-01 12:00:00',
+            'password' => bcrypt('password')
+        ]);
+
+        DB::table('users')->insert([
+            'role' => 'general',
+            'name' => 'test一般ユーザー１',
+            'email' => 'general1@sample.com',
+            'email_verified_at' => '2024-01-01 12:00:00',
+            'password' => bcrypt('password')
+        ]);
+
+        DB::table('users')->insert([
+            'role' => 'general',
+            'name' => 'test一般ユーザー２',
+            'email' => 'general2@sample.com',
+            'email_verified_at' => '2024-01-01 12:00:00',
+            'password' => bcrypt('password')
+        ]);
+
+        DB::table('users')->insert([
+            'role' => 'general',
+            'name' => 'test一般ユーザー３',
+            'email' => 'general3@sample.com',
+            'email_verified_at' => '2024-01-01 12:00:00',
+            'password' => bcrypt('password')
+        ]);
     }
 }

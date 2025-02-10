@@ -29,12 +29,14 @@
     font-size: 2.8rem;
 }
 
-.detail-block__content__img{
+.detail-block__content__img,
+.review--image{
     max-width: 60rem;
     margin-left:1.5rem ;
 }
 
-.detail-block__content__img--img {
+.detail-block__content__img--img,
+.review--image img {
     width: 100%;
     max-height: 40rem;
     object-fit: cover;
@@ -58,10 +60,47 @@
     max-width: 60rem;
 }
 
+.review__header{
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    max-width: 60rem;
+    margin-left: 1.5rem;
+}
 
+.review__edit-delete,
+.review__delete{
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+}
+
+.review__content{
+    margin-bottom: 1rem;
+    border-bottom: 1px solid gray;
+}
+
+.review--star__group{
+    font-size: 3rem;
+    color: blue;
+    margin-left: 1.5rem;
+}
+
+.review--comment{
+    font-size: 1.8rem;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    max-width: 60rem;
+}
+
+.review--image{
+    margin-bottom: 2rem;
+}
 
 /* 予約ブロック */
-
 .reservation-block__container{
     height: 40rem;
     width:60rem ;

@@ -15,10 +15,8 @@
                     <div class="detail-block__back-button">
                         @if (preg_match("/detail/", $prevUrl))
                         <a class="detail-block__back-button--button" href="{{ url()->previous() }}">＜</a>
-                        @elseif (preg_match("/myshop/", $prevUrl))
-                        <a class="detail-block__back-button--button" href="{{ url()->previous() }}">＜</a>
                         @else
-                        <a class="detail-block__back-button--button" href="/myshop/detail/{{$shop_detail->id}}">＜</a>
+                        <a class="detail-block__back-button--button" href="/detail/{{$shop_detail->id}}">＜</a>
                         @endif
                     </div>
                     <div class="header-message">
