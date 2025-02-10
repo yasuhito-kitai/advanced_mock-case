@@ -131,6 +131,10 @@
     box-shadow: 0.2rem 0.2rem 0.5rem black;
 }
 
+.reviewed{
+    font-size: 1.5rem;
+    padding-top: 3.5rem;
+}
 .cancel-icon {
     width: 3rem;
     margin-top: 3rem;

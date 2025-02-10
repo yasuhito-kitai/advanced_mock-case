@@ -21,13 +21,6 @@ class ReviewsTableSeeder extends Seeder
         ]);
 
         DB::table('reviews')->insert([
-            'reservation_id' => '2',
-            'star' => '5',
-            'comment' => 'test',
-            'image' => Null,
-        ]);
-
-        DB::table('reviews')->insert([
             'reservation_id' => '3',
             'star' => '4',
             'comment' => 'test',

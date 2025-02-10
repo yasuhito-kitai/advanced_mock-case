@@ -69,7 +69,7 @@ use Illuminate\Support\Facades\Auth;
                                 </div>
                             </form>
                             @else
-                            <div>レビュー投稿済</div>
+                            <div class="reviewed">レビュー投稿済</div>
                             @endif
 
                         </div>
