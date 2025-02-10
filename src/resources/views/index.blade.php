@@ -12,7 +12,7 @@
             <div class="sort__box">
                 <div class="sort__title">並び替え：</div>
                 <select class="search-form__item-sort--select" name="sort" onchange="submit(this.form)">
-                    <option value="" {{ request()->sort == "" ? "selected" : "" }}>ランダム</option>
+                    <option value="random" {{ request()->sort == "" ? "selected" : "" }}>ランダム</option>
                     <option value="desc" {{ request()->sort == "desc" ? "selected" : "" }}>評価が高い順</option>
                     <option value="asc" {{ request()->sort == "asc" ? "selected" : "" }}>評価が低い順</option>
                 </select>

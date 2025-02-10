@@ -19,6 +19,10 @@ class ShopController extends Controller
     // 店舗一覧
     public function index()
     {
+        // **ランダムシードをセッションに保存（なければ新しく作成）**
+        $randomSeed = session('random_seed', rand());
+        session(['random_seed' => $randomSeed]); // シードをセッションに保存
+
         // 基本となるクエリを作成
         $query = Shop::with('area', 'genre');
         // 評価の平均点を計算
@@ -27,7 +31,7 @@ class ShopController extends Controller
         ->selectRaw('shops.*, COALESCE(ROUND(AVG(reviews.star), 2), -1) as avg_star')
         ->groupBy('shops.id');
 
-        $shops = $query->inRandomOrder()->get(); //デフォルトはランダム表示
+        $shops = $query->orderByRaw("RAND($randomSeed)")->get();
 
         $areas = Area::all();
         $genres = Genre::all();
@@ -92,15 +96,22 @@ class ShopController extends Controller
         ]);
         }
 
-        return back();
+        // **リダイレクト時にランダムシードを維持**
+        return redirect()->route('index');
     }
 
 
     //店舗検索
     public function search_shop(Request $request)
     {
-        // リクエストパラメータを取得し、デフォルトはランダム
+        // 並び順の取得（デフォルトはランダム）
         $order = $request->input('sort', 'random');
+
+        // **ランダムが選択された場合は、新しいシードを生成**
+        if ($order === 'random') {
+            session(['random_seed' => rand()]);
+        }
+
 
         // 基本となるクエリを作成
         $query = Shop::with('area', 'genre')
@@ -122,7 +133,8 @@ class ShopController extends Controller
             $query->orderByRaw('avg_star = -1 ASC')  // 評価なしを後ろに表示
             ->orderBy('avg_star', 'desc'); // 高評価順
         } else {
-            $query->inRandomOrder(); // ランダム（デフォルト）
+            $randomSeed = session('random_seed', rand());
+            $query->orderByRaw("RAND($randomSeed)");
         }
 
         // 最終的にクエリを実行してデータを取得
