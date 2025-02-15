@@ -75,9 +75,13 @@ Route::group(['middleware' => ['auth', 'can:general']], function () {
     Route::get('/review/edit', [ShopController::class, 'review_edit']);
     Route::post('/review/edit/confirm', [ShopController::class, 'review_edit_confirm']);
     Route::patch('/review/update', [ShopController::class, 'review_update']);
-    Route::delete('/review/delete', [ShopController::class, 'review_destroy']);
 });
 
+
+
+Route::group(['middleware' => ['auth', 'can:review_delete_role']], function () {
+    Route::delete('/review/delete', [ShopController::class, 'review_destroy']);
+});
 
 
 //ユーザー登録後にメール認証を促すページに遷移

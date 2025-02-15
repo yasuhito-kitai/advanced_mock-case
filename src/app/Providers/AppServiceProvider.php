@@ -35,5 +35,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('general', function ($user) {
             return ($user->role == "general");
         });
+
+        // 一般ユーザー
+        Gate::define('review_delete_role', function ($user) {
+            return ($user->role == "general" or "admin");
+        });
     }
 }

@@ -53,7 +53,7 @@
             @foreach($reviews as $review)
             <!-- 投稿ユーザーのみ編集と削除可 -->
             @if (Auth::id() === $review->reservation->user_id)
-            <div class="review__edit-delete">
+            <div class="review__edit-delete__button">
                 <div class="review__edit">
                     <form class="edit-form" action="/review/edit" method="get">
                         <input type="hidden" name="id" value="{{$review->reservation_id}}">
@@ -65,7 +65,7 @@
                     <form class="delete-form" action="/review/delete" method="post">
                         @method('DELETE')
                         @csrf
-                        <input type="hidden" name="id" value="{{$review->reservation_id}}">
+                        <input type="hidden" name="id" value="{{$review->id}}">
                         <input type="hidden" name="shop_id" value="{{$shop_detail->id}}">
                         <input class="review-delete__button" type="submit" value="口コミを削除" onclick="return confirm('口コミを削除しますか？')">
                     </form>
@@ -75,11 +75,11 @@
 
             <!-- 管理者だけはすべての口コミを削除可 -->
             @can('admin')
-            <div class="review__delete">
+            <div class="review__edit-delete__button">
                 <form class="delete-form" action="/review/delete" method="post">
                     @method('DELETE')
                     @csrf
-                    <input type="hidden" name="id" value="{{$review->reservation_id}}">
+                    <input type="hidden" name="id" value="{{$review->id}}">
                     <input type="hidden" name="shop_id" value="{{$shop_detail->id}}">
                     <input class="review-delete__button" type="submit" value="口コミを削除" onclick="return confirm('口コミを削除しますか？')">
                 </form>

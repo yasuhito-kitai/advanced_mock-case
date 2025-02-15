@@ -71,8 +71,7 @@
     margin-left: 1.5rem;
 }
 
-.review__edit-delete,
-.review__delete{
+.review__edit-delete__button{
     display: flex;
     justify-content: end;
     margin-top: 1rem;

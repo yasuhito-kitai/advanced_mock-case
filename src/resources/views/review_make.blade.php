@@ -5,73 +5,100 @@
 @stop
 
 @section('content')
-<div class="whole-container__wrapper">
-    <div class="whole-container">
-        @if (preg_match("/confirm/", $prevUrl))
-        <a class="detail-block__back-button--button" href="/mypage/history">＜</a>
-        @else
-        <a class="detail-block__back-button--button" href="{{ url()->previous() }}">＜</a>
-        @endif
-
-        <div class="review__group">
-            <div class="review-section-title">
-                <h2 class="section-title__text">「{{$reservation_record['shop_name']}}」のレビュー</h2>
+<div class="whole-container">
+    <!-- 左 -->
+    <div class="shop-card__area">
+        <div class="message">今回のご利用はいかがでしたか？</div>
+        <div class="shop-card">
+            <div class="shop-card__img">
+                <img src="{{$shop->image}}" alt="shop image">
             </div>
-
-            <div class="review-form__group">
-                <form action="/mypage/review/confirm" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="reservation_id" value="{{$reservation_record['id']}}">
-                    <input type="hidden" name="shop_name" value="{{$reservation_record['shop_name']}}">
-                    <input type="hidden" name="shop_id" value="{{$reservation_record['shop_id']}}">
-                    <h2 class="item__header">評価</h2>
-                    <div class="form-group">
-                        <select class="item__content--star" name="star">
-                            <option value="" hidden>選択してください</option>
-
-                            <option value="5" @if(old('star')==5 ) selected @endif>5★★★★★</option>,
-                            <option value="4" @if(old('star')==4 ) selected @endif>4★★★★</option>,
-                            <option value="3" @if(old('star')==3 ) selected @endif>3★★★</option>,
-                            <option value="2" @if(old('star')==2 ) selected @endif>2★★</option>,
-                            <option value="1" @if(old('star')==1 ) selected @endif>1★</option>
-                        </select>
+            <div class="shop-card__content">
+                <div class="shop-card__header">
+                    <h2 class="shop-card__content-ttl">{{$shop->name}}</h2>
+                </div>
+                <div class="shop-card__content-tag">
+                    <p class="shop-card__content-tag-item">#{{$shop->area->name}}</p>
+                    <p class="shop-card__content-tag-item">#{{$shop->genre->name}}</p>
+                </div>
+                <div class="detail-favorite__flex">
+                    <div class="shop-card__content__detail">
+                        <form class="shop-card__content__detail-form" action="/detail/{{$shop->id}}" method="get">
+                            @csrf
+                            <input class="shop-card__content__detail-btn" type="submit" value="詳しくみる">
+                        </form>
                     </div>
 
-                    <div class="error-message">
-                        @error('star')
-                        <p class="error-message__text">{{ $message }}</p>
-                        @enderror
+                    <div class="shop-card__content__favorite">
+                        <form class="shop-card__content__favorite-form" action="/favorite/{id}" method="post">
+                            @csrf
+                            @if (Auth::check())
+                            @if ($favorites->where("user_id","=",$user_id)->where("shop_id","=",$shop["id"])->first())
+                            <button class="heart red" type="submit" name="shop_id" value="{{$shop->id}}"></button>
+                            @else
+                            <button class="heart gray" type="submit" name="shop_id" value="{{$shop->id}}"></button>
+                            @endif
+                            @else
+                            <button class="heart gray" type="submit" name="shop_id" value="{{$shop->id}}"></button>
+                            @endif
+                        </form>
                     </div>
-
-
-                    <h2 class="item__header">コメント</h2>
-                    <div class="form-group">
-                        <textarea class="item__content--comment" name="comment">{{ old('comment') }}</textarea>
-                    </div>
-
-                    <div class="error-message">
-                        @error('comment')
-                        <p class="error-message__text">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <h2 class="item__header">画像</h2>
-                    <div class="file-button">
-                        <input type="file" class="file-button--input" name="image" >
-                    </div>
-
-                    <div class="error-message">
-                        @error('image')
-                        <p class="error-message__text">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="confirm-button">
-                        <button type="submit" class="confirm-button--btn">確認画面へ</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
+    <!-- 右 -->
+    <div class="review__area">
+            <form action="/mypage/review/confirm" method="post" enctype="multipart/form-data" id="review__submit">
+                @csrf
+                <input type="hidden" name="reservation_id" value="{{$reservation_record['id']}}">
+                <input type="hidden" name="shop_name" value="{{$reservation_record['shop_name']}}">
+                <input type="hidden" name="shop_id" value="{{$reservation_record['shop_id']}}">
+                <h2 class="item__header">体験を評価してください</h2>
+                <div class="form-group">
+                    <select class="item__content--star" name="star">
+                        <option value="" hidden>選択してください▼</option>
+                        <option class="star" value="5" @if(old('star')==5 ) selected @endif>★★★★★</option>,
+                        <option class="star" value="4" @if(old('star')==4 ) selected @endif>★★★★</option>,
+                        <option class="star" value="3" @if(old('star')==3 ) selected @endif>★★★</option>,
+                        <option class="star" value="2" @if(old('star')==2 ) selected @endif>★★</option>,
+                        <option class="star" value="1" @if(old('star')==1 ) selected @endif>★</option>
+                    </select>
+                </div>
+
+                <div class="error-message">
+                    @error('star')
+                    <p class="error-message__text">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <h2 class="item__header">口コミを投稿</h2>
+                <div class="form-group">
+                    <textarea class="item__content--comment" name="comment" onkeyup="document.getElementById('count').value=this.value.length">{{ old('comment') }}</textarea>
+                </div>
+                <div class="count-box"><input class="count" type="text" id="count" readonly>/400（最高文字数）</div>
+
+                <div class="error-message">
+                    @error('comment')
+                    <p class="error-message__text">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <h2 class="item__header">画像の追加</h2>
+                <div class="file-button">
+                    <input type="file" class="file-button--input" name="image">
+                </div>
+
+                <div class="error-message">
+                    @error('image')
+                    <p class="error-message__text">{{ $message }}</p>
+                    @enderror
+                </div>
+            </form>
+    </div>
+</div>
+
+<div class="confirm-button">
+    <button type="submit" class="confirm-button--btn" form="review__submit">確認画面へ</button>
 </div>
 @stop

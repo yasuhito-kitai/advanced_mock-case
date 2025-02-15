@@ -96,8 +96,14 @@ class ShopController extends Controller
         ]);
         }
 
-        // **リダイレクト時にランダムシードを維持**
-        return redirect()->route('index');
+        //遷移元URLの取得
+        $prevUrl = $_SERVER['HTTP_REFERER'];
+        if (preg_match("/mypage/", $prevUrl)){
+            return redirect()->back();
+        }else{
+            // **リダイレクト時にランダムシードを維持**
+            return redirect()->route('index');
+        }
     }
 
 
@@ -212,22 +218,30 @@ class ShopController extends Controller
             $reservation_record['id'] = $reservation_items->id;
             $reservation_record['shop_name'] = $reservation_items->shop->name;
             $reservation_record['shop_id'] = $reservation_items->shop_id;
-            
         }elseif($old_reservation_id){
             $reservation_items = Reservation::find($old_reservation_id);
             $reservation_record = [];
             $reservation_record['id'] = $reservation_items->id;
             $reservation_record['shop_name'] = $reservation_items->shop->name;
             $reservation_record['shop_id'] = $reservation_items->shop_id;
+
         }else{
             $reservation_items = Reservation::find($request->id);
             $reservation_record = [];
             $reservation_record['id'] = $reservation_items->id;
             $reservation_record['shop_name'] = $reservation_items->shop->name;
             $reservation_record['shop_id'] = $reservation_items->shop_id;
+
         }
         $request->session()->forget('form_input');
-        return view('review_make', compact('reservation_record','prevUrl'));
+
+        $user = Auth::user();
+        $user_id = $user->id;
+        $favorites = Favorite::all();
+        $shop = Shop::find($reservation_items->shop_id);
+
+
+        return view('review_make', compact('reservation_record','prevUrl','shop', 'favorites','user_id'));
     }
 
     //レビュー確認
@@ -369,7 +383,7 @@ class ShopController extends Controller
     // レビュー削除
     public function review_destroy(Request $request)
     {
-        Reservation::find($request->id)->delete();
+        Review::find($request->id)->delete();
         return redirect()->route('detail', ['id' => $request->shop_id]);
     }
 }
