@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/review_make.css') }}">
 <link rel="stylesheet" href="{{ asset('css/review_edit.css') }}">
 @stop
 
 @section('content')
-<div class="whole-container__wrapper">
+
     <div class="whole-container">
         @if (preg_match("/confirm/", $prevUrl))
         <a class="detail-block__back-button--button" href="/detail/{{$reservation_record['shop_id']}}">＜</a>
@@ -26,26 +25,36 @@
                     <input type="hidden" name="shop_name" value="{{$reservation_record['shop_name']}}">
                     <input type="hidden" name="shop_id" value="{{$reservation_record['shop_id']}}">
                     <h2 class="item__header">評価</h2>
-                    <div class="form-group">
-                        <select class="item__content--star" name="star">
 
-                            <option value="5" @if(optional($current_review)->star==5 or old('star')==5) selected @endif>5★★★★★</option>,
-                            <option value="4" @if(optional($current_review)->star==4 or old('star')==4) selected @endif>4★★★★</option>
-                            <option value="3" @if(optional($current_review)->star==3 or old('star')==3) selected @endif>3★★★</option>,
-                            <option value="2" @if(optional($current_review)->star==2 or old('star')==2) selected @endif>2★★</option>,
-                            <option value="1" @if(optional($current_review)->star==1 or old('star')==1) selected @endif>1★</option>
-                        </select>
+                    <div class="form-rating">
+                        <input class="form-rating__input" name="star" type="hidden" value="">
+
+                        <input class="form-rating__input" id="star5" name="star" type="radio" value="5" @if(old('star')==5 ) checked @endif>
+                        <label class="form-rating__label" for="star5">★</label>
+
+                        <input class="form-rating__input" id="star4" name="star" type="radio" value="4" @if(old('star')==4) checked @endif>
+                        <label class="form-rating__label" for="star4">★</label>
+
+                        <input class="form-rating__input" id="star3" name="star" type="radio" value="3" @if(old('star')==3 ) checked @endif>
+                        <label class="form-rating__label" for="star3">★</label>
+
+                        <input class="form-rating__input" id="star2" name="star" type="radio" value="2" @if(old('star')==2 ) checked @endif>
+                        <label class="form-rating__label" for="star2">★</label>
+
+                        <input class="form-rating__input" id="star1" name="star" type="radio" value="1" @if(old('star')==1 ) checked @endif>
+                        <label class="form-rating__label" for="star1">★</label>
                     </div>
 
                     <h2 class="item__header">コメント</h2>
                     <div class="form-group">
                         @if(old('comment'))
-                        <textarea class="item__content--comment" name="comment">{{ old('comment') }}</textarea>
+                        <textarea class="item__content--comment" name="comment" onkeyup="document.getElementById('count').value=this.value.length">{{ old('comment') }}</textarea>
                         @else
-                        <textarea class="item__content--comment" name="comment">{{$current_review->comment}}</textarea>
+                        <textarea class="item__content--comment" name="comment" onkeyup="document.getElementById('count').value=this.value.length">{{$current_review->comment}}</textarea>
                         @endif
-                    </div>
-
+                    
+                    <div class="count-box"><input class="count" type="text" id="count" readonly>/400（最高文字数）</div>
+</div>
                     <div class="error-message">
                         @error('comment')
                         <p class="error-message__text">{{ $message }}</p>
@@ -85,6 +94,6 @@
                 </form>
             </div>
         </div>
-    </div>
-</div>
+    </di>
+
 @stop

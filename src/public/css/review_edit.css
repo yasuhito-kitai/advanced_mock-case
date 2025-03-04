@@ -1,3 +1,108 @@
+.whole-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+    width: auto;
+}
+
+
+.item__content--comment {
+    color: black;
+    font-size: 1.5rem;
+    margin-left: 3rem;
+    margin-bottom: 0rem;
+    width: 80%;
+}
+
+textarea {
+    height: 12rem;
+    resize: none;
+    background-color: #f5f5f5;
+    border: gray 1px solid;
+
+}
+
+.count-box {
+    text-align: end;
+    width: 86%;
+}
+
+.count {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    pointer-events: none;
+    user-select: none;
+    text-align: end;
+    font-size: 1rem;
+    background-color: #f5f5f5;
+}
+
+.file-button {
+    margin-left: 3rem;
+}
+
+.file-button--input {
+    color: black;
+}
+
+.confirm-button {
+    display: flex;
+    justify-content: center;
+}
+
+.confirm-button--btn {
+    margin-top: 2.5rem;
+    border: none;
+    background-color: white;
+    color: black;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    border-radius: 3rem;
+    width: 50rem;
+}
+
+.error-message__text {
+    color: red;
+    margin-left: 6rem;
+}
+
+.form-rating {
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+    margin-left: 1.5rem;
+}
+
+.form-rating__input {
+    display: none;
+}
+
+.form-rating__label {
+    color: #ccc;
+    cursor: pointer;
+    font-size: 3rem;
+    padding: 0 1rem;
+    position: relative;
+    transition: color 0.3s;
+}
+
+
+
+.form-rating__label:hover,
+.form-rating__label:hover~.form-rating__label,
+.form-rating__input:checked~.form-rating__label {
+    /* 「~」でホバー時を動的に、チェック時にそれ以下の数字をもつスターの色も変化 */
+    color: blue;
+}
+
+
+
 .current-image--title,
 .new-image--title{
     color: black;
@@ -21,4 +126,27 @@
     color: black;
     margin-bottom: 1rem;
     margin-left: 5rem;
+}
+
+.detail-block__back-button--button {
+    text-decoration: none;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    padding: 0.7rem 0.8rem;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    box-shadow: 0.2rem 0.2rem 0.5rem gray;
+    height: 3rem;
+    margin-top: 0.75rem;
+}
+
+/* レスポンシブデザイン */
+@media screen and (max-width: 768px) {
+
+    .confirm-button--btn {
+        width: 50vw;
+    }
 }

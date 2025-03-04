@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/review_make.css') }}">
+<link rel=”stylesheet” href=”https://use.fontawesome.com/releases/v6.4.2/css/all.css”>
 @stop
 
 @section('content')
@@ -49,52 +50,61 @@
     </div>
     <!-- 右 -->
     <div class="review__area">
-            <form action="/mypage/review/confirm" method="post" enctype="multipart/form-data" id="review__submit">
-                @csrf
-                <input type="hidden" name="reservation_id" value="{{$reservation_record['id']}}">
-                <input type="hidden" name="shop_name" value="{{$reservation_record['shop_name']}}">
-                <input type="hidden" name="shop_id" value="{{$reservation_record['shop_id']}}">
-                <h2 class="item__header">体験を評価してください</h2>
-                <div class="form-group">
-                    <select class="item__content--star" name="star">
-                        <option value="" hidden>選択してください▼</option>
-                        <option class="star" value="5" @if(old('star')==5 ) selected @endif>★★★★★</option>,
-                        <option class="star" value="4" @if(old('star')==4 ) selected @endif>★★★★</option>,
-                        <option class="star" value="3" @if(old('star')==3 ) selected @endif>★★★</option>,
-                        <option class="star" value="2" @if(old('star')==2 ) selected @endif>★★</option>,
-                        <option class="star" value="1" @if(old('star')==1 ) selected @endif>★</option>
-                    </select>
-                </div>
+        <form action="/mypage/review/confirm" method="post" enctype="multipart/form-data" id="review__submit">
+            @csrf
+            <input type="hidden" name="reservation_id" value="{{$reservation_record['id']}}">
+            <input type="hidden" name="shop_name" value="{{$reservation_record['shop_name']}}">
+            <input type="hidden" name="shop_id" value="{{$reservation_record['shop_id']}}">
+            <h2 class="item__header">体験を評価してください</h2>
 
-                <div class="error-message">
-                    @error('star')
-                    <p class="error-message__text">{{ $message }}</p>
-                    @enderror
-                </div>
+            <div class="form-rating">
+                <input class="form-rating__input" name="star" type="hidden" value="">
 
-                <h2 class="item__header">口コミを投稿</h2>
-                <div class="form-group">
-                    <textarea class="item__content--comment" name="comment" onkeyup="document.getElementById('count').value=this.value.length">{{ old('comment') }}</textarea>
-                </div>
-                <div class="count-box"><input class="count" type="text" id="count" readonly>/400（最高文字数）</div>
+                <input class="form-rating__input" id="star5" name="star" type="radio" value="5" @if(old('star')==5 ) checked @endif>
+                <label class="form-rating__label" for="star5">★</label>
 
-                <div class="error-message">
-                    @error('comment')
-                    <p class="error-message__text">{{ $message }}</p>
-                    @enderror
-                </div>
+                <input class="form-rating__input" id="star4" name="star" type="radio" value="4" @if(old('star')==4) checked @endif>
+                <label class="form-rating__label" for="star4">★</label>
 
-                <h2 class="item__header">画像の追加</h2>
-                <div class="file-button">
-                    <input type="file" class="file-button--input" name="image">
-                </div>
+                <input class="form-rating__input" id="star3" name="star" type="radio" value="3" @if(old('star')==3 ) checked @endif>
+                <label class="form-rating__label" for="star3">★</label>
 
-                <div class="error-message">
-                    @error('image')
-                    <p class="error-message__text">{{ $message }}</p>
-                    @enderror
-                </div>
-            </form>
+                <input class="form-rating__input" id="star2" name="star" type="radio" value="2" @if(old('star')==2 ) checked @endif>
+                <label class="form-rating__label" for="star2">★</label>
+
+                <input class="form-rating__input" id="star1" name="star" type="radio" value="1" @if(old('star')==1 ) checked @endif>
+                <label class="form-rating__label" for="star1">★</label>
+            </div>
+
+            <div class="error-message">
+                @error('star')
+                <p class="error-message__text">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <h2 class="item__header">口コミを投稿</h2>
+            <div class="form-group">
+                <textarea class="item__content--comment" name="comment" onkeyup="document.getElementById('count').value=this.value.length">{{ old('comment') }}</textarea>
+            </div>
+            <div class="count-box"><input class="count" type="text" id="count" readonly>/400（最高文字数）</div>
+
+            <div class="error-message">
+                @error('comment')
+                <p class="error-message__text">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <h2 class="item__header">画像の追加</h2>
+            <div class="file-button">
+                <input type="file" class="file-button--input" name="image">
+            </div>
+
+            <div class="error-message">
+                @error('image')
+                <p class="error-message__text">{{ $message }}</p>
+                @enderror
+            </div>
+        </form>
     </div>
 </div>
 

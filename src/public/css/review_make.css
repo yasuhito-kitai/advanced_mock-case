@@ -131,18 +131,7 @@ margin-left: 5rem;
 }
 
 
-.detail-block__back-button--button {
-    text-decoration: none;
-    background-color: white;
-    color: black;
-    cursor: pointer;
-    border-radius: 0.5rem;
-    padding: 0.7rem 0.8rem;
-    text-align: center;
-    font-size: 1.3rem;
-    font-weight: bold;
-    box-shadow: 0.2rem 0.2rem 0.5rem gray;
-}
+
 
 .review__area {
     background-color: #f5f5f5;
@@ -180,15 +169,6 @@ select {
 /* ie対応 */
 select::-ms-expand {
     display: none;
-}
-
-.item__content--star {
-    color: black;
-    font-size: 2.5rem;
-    margin-left: 3rem;
-    margin-bottom: 0rem;
-    width: 20rem;
-    color: blue;
 }
 
 .item__content--comment {
@@ -254,7 +234,38 @@ textarea {
     color: red;
     margin-left: 6rem;
 }
+ 
+.form-rating {
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+    margin-left: 1.5rem;
+}
 
+.form-rating__input {
+    display: none;
+}
+
+.form-rating__label {
+    color: #ccc;
+    cursor: pointer;
+    font-size: 3rem;
+    padding: 0 1rem;
+    position: relative;
+    transition: color 0.3s;
+}
+
+
+
+.form-rating__label:hover,
+.form-rating__label:hover~.form-rating__label,
+.form-rating__input:checked~.form-rating__label {
+    /* 「~」でホバー時を動的に、チェック時にそれ以下の数字をもつスターの色も変化 */
+    color: blue;
+}
+ 
 /* レスポンシブデザイン */
 @media screen and (max-width: 768px) {
     .nav {

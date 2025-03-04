@@ -50,6 +50,7 @@
 
         <div class="detail-content__review">
             <div class="review__header">全ての口コミ情報</div>
+            @if ($reviews->isNotEmpty())
             @foreach($reviews as $review)
             <!-- 投稿ユーザーのみ編集と削除可 -->
             @if (Auth::id() === $review->reservation->user_id)
@@ -108,6 +109,9 @@
                 @endif
             </div>
             @endforeach
+            @else
+            口コミはありません
+            @endif
         </div>
     </div>
 
